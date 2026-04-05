@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Training Plans — Team Hub</title>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+
+    .plans-list {
+      padding: 48px 0 80px;
+    }
+
+    .plans-header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 28px;
+    }
+
+    .plans-header-row h2 {
+      font-size: 22px;
+      letter-spacing: 0.02em;
+      color: var(--text);
+    }
+
+    .plan-count-badge {
+      background: var(--blue-light);
+      color: var(--blue);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      padding: 4px 12px;
+      border-radius: 99px;
+    }
+
+    /* ---- Plan card ---- */
+    .plan-card {
+      display: grid;
+      grid-template-columns: 80px 1fr auto;
+      align-items: center;
+      gap: 28px;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px 28px;
+      text-decoration: none;
+      color: var(--text);
+      margin-bottom: 12px;
+      transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+    }
+
+    .plan-card:hover {
+      border-color: var(--blue);
+      box-shadow: 0 4px 24px var(--blue-glow);
+      transform: translateX(4px);
+    }
+
+    .plan-date {
+      text-align: center;
+      background: var(--blue-light);
+      border-radius: 10px;
+      padding: 12px 8px;
+      line-height: 1.2;
+    }
+
+    .plan-date .day {
+      font-family: 'Mackintosh', Georgia, serif;
+      font-size: 30px;
+      color: var(--blue);
+      display: block;
+    }
+
+    .plan-date .month {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--blue);
+      display: block;
+    }
+
+    .plan-info h3 {
+      font-size: 18px;
+      letter-spacing: 0.02em;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .plan-meta {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .plan-tag {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 99px;
+    }
+
+    .tag-blue { background: var(--blue-light); color: var(--blue); }
+    .tag-green { background: var(--green-light); color: var(--green); }
+    .tag-gray { background: #f3f4f6; color: var(--muted); }
+
+    .plan-arrow {
+      font-size: 20px;
+      color: var(--border);
+      transition: color 0.2s;
+    }
+    .plan-card:hover .plan-arrow { color: var(--blue); }
+
+    /* ---- Add new plan instructions ---- */
+    .add-instructions {
+      margin-top: 40px;
+      background: var(--white);
+      border: 2px dashed var(--border);
+      border-radius: 12px;
+      padding: 32px;
+    }
+
+    .add-instructions h3 {
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    .add-instructions ol {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .add-instructions li {
+      font-size: 14px;
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    .add-instructions code {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      padding: 2px 7px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-family: monospace;
+      color: var(--blue);
+    }
+
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="nav-logo" href="index.html">Team Hub</a>
+    <ul class="nav-links">
+      <li><a href="training.html" class="active-blue">Training</a></li>
+      <li><a href="footage.html">Footage</a></li>
+      <li><a href="scouting.html">Scouting</a></li>
+    </ul>
+  </nav>
+
+  <div class="page-banner banner-blue">
+    <div class="container">
+      <div class="breadcrumb"><a href="index.html">Home</a> / Training Plans</div>
+      <h1>Training Plans</h1>
+      <p>Browse all session plans. Click any plan to open the full document.</p>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="plans-list">
+
+      <div class="plans-header-row">
+        <h2>All Sessions</h2>
+        <span class="plan-count-badge">2 sessions</span>
+      </div>
+
+      <!-- Session card — add more by duplicating this block -->
+      <a href="session-12-april.html" class="plan-card">
+        <div class="plan-date">
+          <span class="day">12</span>
+          <span class="month">Apr</span>
+        </div>
+        <div class="plan-info">
+          <h3>Zone Defence &amp; Offence</h3>
+          <div class="plan-meta">
+            <span class="plan-tag tag-blue">Zone O</span>
+            <span class="plan-tag tag-green">Zone D</span>
+            <span class="plan-tag tag-gray">2 hours</span>
+            <span class="plan-tag tag-gray">3:00 PM</span>
+          </div>
+        </div>
+        <div class="plan-arrow">→</div>
+      </a>
+
+      <a href="session-22-march.html" class="plan-card">
+        <div class="plan-date">
+          <span class="day">22</span>
+          <span class="month">Mar</span>
+        </div>
+        <div class="plan-info">
+          <h3>Generating Flow &amp; Resets</h3>
+          <div class="plan-meta">
+            <span class="plan-tag tag-blue">Resets</span>
+            <span class="plan-tag tag-blue">Endzone</span>
+            <span class="plan-tag tag-gray">3 hours</span>
+            <span class="plan-tag tag-gray">2:00 PM</span>
+          </div>
+        </div>
+        <div class="plan-arrow">→</div>
+      </a>
+
+      <!-- =====================================================
+           HOW TO ADD A NEW SESSION PLAN
+           =====================================================
+           1. Duplicate the <a href="..."> block above
+           2. Update the href to point to your new HTML file
+              e.g. href="session-19-april.html"
+           3. Change the date numbers (day / month)
+           4. Update the session title
+           5. Add or change the tag badges to reflect the focus
+           6. Create the new session HTML file (copy session-12-april.html
+              and update the content inside it)
+           7. Save and re-upload the whole folder to Netlify
+           ===================================================== -->
+
+      <div class="add-instructions">
+        <h3>How to add a new session plan</h3>
+        <ol>
+          <li>Duplicate the file <code>session-12-april.html</code> and rename it, e.g. <code>session-19-april.html</code></li>
+          <li>Open the new file and update all the session content inside</li>
+          <li>Open <code>training.html</code> and copy the plan card block, updating the date, title, tags and <code>href</code></li>
+          <li>Save both files and drag the whole site folder to Netlify to redeploy</li>
+        </ol>
+      </div>
+
+    </div>
+  </div>
+
+</body>
+</html>

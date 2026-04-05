@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Page Builder Cheatsheet — Team Hub</title>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+
+    /* =============================================
+       TUTORIAL PAGE STYLES
+       ============================================= */
+
+    body { background: #f0f2f5; }
+
+    .tut-hero {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      padding: 56px 40px 48px;
+      text-align: center;
+    }
+
+    .tut-hero .eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+
+    .tut-hero h1 {
+      font-size: clamp(36px, 6vw, 64px);
+      color: var(--text);
+      line-height: 1.1;
+    }
+
+    .tut-hero p {
+      margin-top: 12px;
+      font-size: 16px;
+      color: var(--muted);
+    }
+
+    /* Table of contents */
+    .toc {
+      max-width: 780px;
+      margin: 40px auto 0;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px 28px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px 32px;
+    }
+
+    @media (max-width: 600px) { .toc { grid-template-columns: 1fr; } }
+
+    .toc a {
+      font-size: 14px;
+      color: var(--blue);
+      text-decoration: none;
+      padding: 4px 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .toc a:hover { text-decoration: underline; }
+    .toc a::before { content: '↓'; font-size: 11px; color: var(--muted); }
+
+    /* Main layout */
+    .tut-container {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 56px 40px 100px;
+      display: flex;
+      flex-direction: column;
+      gap: 64px;
+    }
+
+    /* Each component section */
+    .component-section {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .component-label {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+
+    .component-label h2 {
+      font-size: 26px;
+      letter-spacing: 0.02em;
+      color: var(--text);
+    }
+
+    .component-label .num {
+      background: var(--blue);
+      color: white;
+      font-family: 'Mackintosh', Georgia, serif;
+      font-size: 18px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    /* Preview box */
+    .preview-box {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px 12px 0 0;
+      padding: 32px;
+      position: relative;
+    }
+
+    .preview-box::before {
+      content: 'PREVIEW';
+      position: absolute;
+      top: 12px;
+      right: 16px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      color: var(--muted);
+    }
+
+    /* Code box */
+    .code-box {
+      background: #1e2433;
+      border-radius: 0 0 12px 12px;
+      padding: 24px 28px;
+      position: relative;
+      overflow-x: auto;
+    }
+
+    .code-box::before {
+      content: 'CODE — COPY & PASTE THIS';
+      display: block;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      color: #6b7a99;
+      margin-bottom: 14px;
+    }
+
+    .code-box pre {
+      margin: 0;
+      white-space: pre;
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      line-height: 1.7;
+      color: #c9d1e0;
+    }
+
+    .code-box .tag { color: #7ec8e3; }
+    .code-box .attr { color: #f7c59f; }
+    .code-box .val { color: #98d982; }
+    .code-box .comment { color: #6b7a99; font-style: italic; }
+    .code-box .str { color: #f4a261; }
+
+    .copy-btn {
+      position: absolute;
+      top: 14px;
+      right: 16px;
+      background: #2d3650;
+      border: 1px solid #3d4a6a;
+      border-radius: 6px;
+      padding: 5px 12px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: #8a9ab8;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .copy-btn:hover { background: #3d4a6a; color: #c9d1e0; }
+    .copy-btn.copied { background: var(--green); color: white; border-color: var(--green); }
+
+    .tip-box {
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-radius: 8px;
+      padding: 12px 18px;
+      font-size: 13px;
+      color: #92400e;
+      margin-top: 12px;
+    }
+
+    .tip-box strong { color: #78350f; }
+
+    /* =============================================
+       ALL THE ACTUAL COMPONENTS (reused from sessions)
+       ============================================= */
+
+    /* --- Page banner --- */
+    .page-banner { padding: 48px 32px 40px; border-bottom: 1px solid var(--border); background: var(--white); }
+    .page-banner .breadcrumb { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+    .page-banner h1 { font-size: clamp(36px, 6vw, 64px); line-height: 1.1; letter-spacing: 0.02em; color: var(--text); }
+    .page-banner p { margin-top: 10px; font-size: 15px; color: var(--muted); }
+    .banner-blue { border-left: 4px solid var(--blue); padding-left: 28px; }
+
+    /* --- Divider --- */
+    .section-divider { border: none; border-top: 1px solid var(--border); margin: 28px 0; }
+
+    /* --- Time row --- */
+    .time-row { display: grid; grid-template-columns: 80px 1fr; gap: 24px; align-items: start; padding: 16px 0; border-bottom: 1px solid var(--border); }
+    .time-stamp { font-family: 'Mackintosh', Georgia, serif; font-size: 20px; color: var(--blue); padding-top: 2px; }
+    .time-body h3 { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 2px; }
+    .time-body p { font-size: 14px; color: var(--muted); }
+
+    /* --- Zone cards --- */
+    .zone-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .zone-card { background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 24px; }
+    .zone-card.offence { border-top: 3px solid var(--blue); }
+    .zone-card.defence { border-top: 3px solid var(--green); }
+    .zone-card h3 { font-size: 18px; letter-spacing: 0.03em; margin-bottom: 14px; }
+    .zone-card.offence h3 { color: var(--blue); }
+    .zone-card.defence h3 { color: var(--green); }
+    .bullet-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .bullet-list li { font-size: 13.5px; color: var(--text); padding-left: 16px; position: relative; line-height: 1.5; }
+    .bullet-list li::before { content: '–'; position: absolute; left: 0; color: var(--muted); }
+
+    /* --- Games block --- */
+    .games-block { background: var(--white); border: 1px solid var(--border); border-left: 4px solid var(--green); border-radius: 0 12px 12px 0; padding: 28px 32px; }
+    .block-label { font-size: 11px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; margin-bottom: 14px; }
+    .block-label.green { color: var(--green); }
+    .block-label.blue { color: var(--blue); }
+    .game-rules { display: flex; flex-direction: column; gap: 12px; }
+    .game-rule { display: flex; align-items: flex-start; gap: 12px; font-size: 14px; color: var(--text); }
+    .rule-tag { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 3px 9px; border-radius: 4px; white-space: nowrap; margin-top: 2px; }
+    .rule-tag.blue { background: var(--blue-light); color: var(--blue); }
+    .rule-tag.green { background: var(--green-light); color: var(--green); }
+    .win-note { margin-top: 18px; padding: 14px 20px; background: var(--green-light); border-radius: 8px; font-size: 13px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--green); text-align: center; }
+
+    /* --- Break badge --- */
+    .break-badge { display: flex; justify-content: center; margin: 20px 0; }
+    .break-badge span { background: #f9fafb; border: 1px solid var(--border); border-radius: 99px; padding: 8px 24px; font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+
+    /* --- Image --- */
+    .drill-image { width: 100%; border-radius: 10px; border: 1px solid var(--border); display: block; }
+    .image-caption { font-size: 12px; color: var(--muted); font-style: italic; text-align: center; margin-top: 6px; }
+
+    /* --- Iframe wrap --- */
+    .iframe-wrap { background: var(--white); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; padding: 4px; }
+    .iframe-wrap iframe { display: block; width: 100%; border-radius: 9px; }
+
+    /* --- Collapsible --- */
+    .collapsible { border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+    .collapsible summary { display: flex; align-items: center; justify-content: space-between; padding: 18px 24px; cursor: pointer; background: var(--white); list-style: none; user-select: none; }
+    .collapsible summary::-webkit-details-marker { display: none; }
+    .collapsible summary h3 { font-size: 18px; color: var(--text); }
+    .collapsible summary .chevron { font-size: 18px; color: var(--muted); transition: transform 0.3s; }
+    details[open] .chevron { transform: rotate(180deg); }
+    .collapsible .coll-body { padding: 24px; background: #fafbfc; border-top: 1px solid var(--border); font-size: 14px; color: var(--text); line-height: 1.8; }
+
+    /* --- Aims block --- */
+    .aims-block { background: var(--white); border: 1px solid var(--border); border-left: 4px solid var(--blue); border-radius: 0 12px 12px 0; padding: 24px 28px; }
+    .aims-list { list-style: none; counter-reset: aims; display: flex; flex-direction: column; gap: 10px; }
+    .aims-list li { counter-increment: aims; display: flex; align-items: flex-start; gap: 14px; font-size: 15px; color: var(--text); }
+    .aims-list li::before { content: counter(aims, decimal-leading-zero); font-family: 'Mackintosh', Georgia, serif; font-size: 20px; color: var(--blue); min-width: 28px; line-height: 1.4; }
+
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="nav-logo" href="index.html">Team Hub</a>
+    <ul class="nav-links">
+      <li><a href="training.html">Training</a></li>
+      <li><a href="footage.html">Footage</a></li>
+      <li><a href="scouting.html">Scouting</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero -->
+  <div class="tut-hero">
+    <div class="eyebrow">Reference Guide</div>
+    <h1>Page Builder Cheatsheet</h1>
+    <p>Every reusable element from your session pages. Preview + copy-paste code for each one.</p>
+
+    <nav class="toc">
+      <a href="#banner">Page Header / Banner</a>
+      <a href="#timeline">Time Schedule Row</a>
+      <a href="#divider">Section Divider</a>
+      <a href="#zone-cards">Offence &amp; Defence Cards</a>
+      <a href="#break">Break Badge</a>
+      <a href="#games">Games Block</a>
+      <a href="#image">Inserting an Image</a>
+      <a href="#video">Embedding a Video</a>
+      <a href="#collapsible">Collapsible Section</a>
+      <a href="#aims">Session Aims Block</a>
+    </nav>
+  </div>
+
+  <div class="tut-container">
+
+    <!-- ============================================================
+         1. PAGE HEADER / BANNER
+         ============================================================ -->
+    <div class="component-section" id="banner">
+      <div class="component-label">
+        <div class="num">1</div>
+        <h2>Page Header / Banner</h2>
+      </div>
+
+      <div class="preview-box">
+        <div style="background:var(--white); border-left:4px solid var(--blue); padding: 32px 28px; border-radius:4px;">
+          <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;">
+            <a href="#" style="color:var(--muted);text-decoration:none;">Home</a> / <a href="#" style="color:var(--muted);text-decoration:none;">Training Plans</a> / 12 April
+          </div>
+          <h1 style="font-size:52px;line-height:1.1;color:var(--text);">12 April</h1>
+          <p style="margin-top:10px;font-size:15px;color:var(--muted);">Zone Defence &amp; Offence — 2 hours, 3:00 PM sharp</p>
+        </div>
+      </div>
+
+      <div class="code-box">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre>
+<span class="comment">&lt;!-- Page Header Banner --&gt;</span>
+<span class="comment">&lt;!-- Use class="banner-blue" for blue left border, "banner-green" for green --&gt;</span>
+
+<span class="tag">&lt;div</span> <span class="attr">class=</span><span class="val">"page-banner banner-blue"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;div</span> <span class="attr">class=</span><span class="val">"container"</span><span class="tag">&gt;</span>
+
+    <span class="comment">&lt;!-- Breadcrumb trail: Home / Section / Page --&gt;</span>
+    <span class="tag">&lt;div</span> <span class="attr">class=</span><span class="val">"breadcrumb"</span><span class="tag">&gt;</span>
+      <span class="tag">&lt;a</span> <span class="attr">href=</span><span class="val">"index.html"</span><span class="tag">&gt;</span>Home<span class="tag">&lt;/a&gt;</span> /
+      <span class="tag">&lt;a</span> <span class="attr">href=</span><span class="val">"training.html"</span><span class="tag">&gt;</span>Training Plans<span class="tag">&lt;/a&gt;</span> / 12 April
+    <span class="tag">&lt;/div&gt;</span>
+
+    <span class="comment">&lt;!-- Main title --&gt;</span>
+    <span class="tag">&lt;h1&gt;</span>12 April<span class="tag">&lt;/h1&gt;</span>
+
+    <span class="comment">&lt;!-- Subtitle / description --&gt;</span>
+    <span class="tag">&lt;p&gt;</span>Zone Defence &amp;amp; Offence — 2 hours, 3:00 PM sharp<span class="tag">&lt;/p&gt;</span>
+
+  <span class="tag">&lt;/div&gt;</span>
+<span class="tag">&lt;/div&gt;</span></pre>
+      </div>
+      <div class="tip-box"><strong>Tip:</strong> Change <code>banner-blue</code> to <code>banner-green</code> for a green border. Update the text inside h1 and p to match your session.</div>
+    </div>
+
+
+    <!-- ============================================================
+         2. TIME SCHEDULE ROW
+         ============================================================ -->
+    <div class="component-section" id="timeline">
+      <div class="component-label">
+        <div class="num">2</div>
+        <h2>Time Schedule Row</h2>
+      </div>
+
+      <div class="preview-box">
+        <div class="time-row" style="border-bottom:none;">
+          <div class="time-stamp">3:00</div>
+          <div class="time-body">
+            <h3>Session Starts (Sharp)</h3>
+            <p>Chat and warm up</p>
+          </div>
+        </div>
+        <div class="time-row" style="border-bottom:none; margin-top:4px;">
+          <div class="time-stamp">3:15</div>
+          <div class="time-body">
+            <h3>Throwing Warm Up</h3>
+          </div>
+        </div>
+      </div>
+
+      <div class="code-box">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre>
+<span class="comment">&lt;!-- Time Schedule Row --&gt;</span>
+<span class="comment">&lt;!-- Repeat this block for each time slot --&gt;</span>
+
+<span class="tag">&lt;div</span> <span class="attr">class=</span><span class="val">"time-row"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;div</span> <span class="attr">class=</span><span class="val">"time-stamp"</span><span class="tag">&gt;</span>3:00<span class="tag">&lt;/div&gt;</span>
+  <span class="tag">&lt;div</span> <span class="attr">class=</span><span class="val">"time-body"</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;h3&gt;</span>Session Starts (Sharp)<span class="tag">&lt;/h3&gt;</span>
+    <span class="tag">&lt;p&gt;</span>Chat and warm up<span class="tag">&lt;/p&gt;</span>  <span class="comment">&lt;!-- Optional subtitle --&gt;</span>
+  <span class="tag">&lt;/div&gt;</span>
+<span class="tag">&lt;/div&gt;</span>
+
+<span class="tag">&lt;div</span> <span class="attr">class=</span><span class="val">"time-row"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;div</span> <span class="attr">class=</span><span class="val">"time-stamp"</span><span class="tag">&gt;</span>3:15<span class="tag">&lt;/div&gt;</span>
+  <span class="tag">&lt;div</span> <span class="attr">class=</span><span class="val">"time-body"</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;h3&gt;</span>Throwing Warm Up<span class="tag">&lt;/h3&gt;</span>
+  <span class="tag">&lt;/div&gt;</span>
+<span class="tag">&lt;/div&gt;</span></pre>
+      </div>
+      <div class="tip-box"><strong>Tip:</strong> The <code>&lt;p&gt;</code> subtitle line is optional — leave it out if there's no extra detail needed for that slot.</div>
+    </div>
+
+
+    <!-- ============================================================
+         3. SECTION DIVIDER
+         ============================================================ -->
+    <div class="component-section" id="divider">
+      <div class="component-label">
+        <div class="num">3</div>
+        <h2>Section Divider</h2>
+      </div>
+
+      <div class="preview-box">
+        <p style="font-size:14px;color:var(--muted);margin-bottom:16px;">Content above the divider</p>
+        <hr class="section-divider"/>
+        <p style="font-size:14px;color:var(--muted);margin-top:16px;">Content below the divider</p>
+      </div>
+
+      <div class="code-box">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre>
+<span class="comment">&lt;!-- Section Divider — drop this between any two sections --&gt;</span>
+
+<span class="tag">&lt;hr</span> <span class="attr">class=</span><span class="val">"section-divider"</span><span class="tag">/&gt;</span></pre>
+      </div>
+      <div class="tip-box"><strong>Tip:</strong> Just drop this single line wherever you want a horizontal rule between sections. No other changes needed.</div>
+    </div>
+
+
+    <!-- ============================================================
+         4. OFFENCE & DEFENCE CARDS
+         ============================================================ -->
+    <div class="component-section" id="zone-cards">
+      <div class="component-label">
+        <div class="num">4</div>
+        <h2>Offence &amp; Defence Cards</h2>
+      </div>
+
+      <div class="preview-box">
+        <div class="zone-grid">
+          <div class="zone-card offence">
+            <h3>Zone Offence</h3>
+            <ul class="bullet-list">
+              <li>Don't crowd the disc</li>
+              <li>Take on swings</li>
+              <li>Don't get greedy</li>
+            </ul>
+          </div>
+          <div class="zone-card defence">
+            <h3>Zone Defence</h3>
+            <ul class="bullet-list">
+              <li>See the players, not the disc</li>
+              <li>Comms — sidelines to front</li>
+              <li>Create pressure and trap</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="code-box">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre>
+<span class="comment">&lt;!-- Offence & Defence side-by-side cards --&gt;</span>
+<span class="comment">&lt;!-- Blue top border = offence, Green top border = defence --&gt;</span>
+
+<span class="tag">&lt;div</span> <span class="attr">class=</span><span class="val">"zone-grid"</span><span class="tag">&gt;</span>
+
+  <span class="comment">&lt;!-- OFFENCE CARD --&gt;</span>
+  <span class="tag">&lt;div</span> <span class="attr">class=</span><span class="val">"zone-card offence"</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;h3&gt;</span>Zone Offence<span class="tag">&lt;/h3&gt;</span>
+    <span class="tag">&lt;ul</span> <span class="attr">class=</span><span class="val">"bullet-list"</span><span class="tag">&gt;</span>
+      <span class="tag">&lt;li&gt;</span>Don't crowd the disc<span class="tag">&lt;/li&gt;</span>
+      <span class="tag">&lt;li&gt;</span>Take on swings<span class="tag">&lt;/li&gt;</span>
+      <span class="tag">&lt;li&gt;</span>Don't get greedy<span class="tag">&lt;/li&gt;</span>
+    <span class="tag">&lt;/ul&gt;</span>
+  <span class="tag">&lt;/div&gt;</span>
+
+  <span class="comment">&lt;!-- DEFENCE CARD --&gt;</span>
+  <span class="tag">&lt;div</span> <span class="attr">class=</span><span class="val">"zone-card defence"</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;h3&gt;</span>Zone Defence<span class="tag">&lt;/h3&gt;</span>
+    <span class="tag">&lt;ul</span> <span class="attr">class=</span><span class="val">"bullet-list"</span><span class="tag">&gt;</span>
+      <span class="tag">&lt;li&gt;</span>See the players, not the disc<span class="tag">&lt;/li&gt;</span>
+      <span class="tag">&lt;li&gt;</span>Comms — sidelines to front<span class="tag">&lt;/li&gt;</span>
+      <span class="tag">&lt;li&gt;</span>Create pressure and trap<span class="tag">&lt;/li&gt;</span>
+    <span class="tag">&lt;/ul&gt;</span>
+  <span class="tag">&lt;/div&gt;</span>
+
+<span class="tag">&lt;/div&gt;</span></pre>
+      </div>
+      <div class="tip-box"><strong>Tip:</strong> Add as many <code>&lt;li&gt;</code> items as you need. You can also use just one card by removing one of the divs — it'll stretch full width automatically.</div>
+    </div>
+
+
+    <!-- ============================================================
+         5. BREAK BADGE
+         ============================================================ -->
+    <div class="component-section" id="break">
+      <div class="component-label">
+        <div class="num">5</div>
+        <h2>Break Badge</h2>
+      </div>
+
+      <div class="preview-box">
+        <div class="break-badge">
+          <span>⏸ &nbsp; 4:10 – 4:15 &nbsp; Break</span>
+        </div>
+      </div>
+
+      <div class="code-box">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre>
+<span class="comment">&lt;!-- Break Badge — centred pill indicating a rest period --&gt;</span>
+
+<span class="tag">&lt;div</span> <span class="attr">class=</span><span class="val">"break-badge"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;span&gt;</span>⏸ &amp;nbsp; 4:10 – 4:15 &amp;nbsp; Break<span class="tag">&lt;/span&gt;</span>
+<span class="tag">&lt;/div&gt;</span></pre>
+      </div>
+      <div class="tip-box"><strong>Tip:</strong> Change the time and label text inside <code>&lt;span&gt;</code>. The <code>&amp;nbsp;</code> just adds a small space either side of the times.</div>
+    </div>
+
+
+    <!-- ============================================================
+         6. GAMES BLOCK
+         ============================================================ -->
+    <div class="component-section" id="games">
+      <div class="component-label">
+        <div class="num">6</div>
+        <h2>Games Block</h2>
+      </div>
+
+      <div class="preview-box">
+        <div class="games-block">
+          <div class="block-label green">Game Format</div>
+          <div class="game-rules">
+            <div class="game-rule">
+              <span class="rule-tag blue">Rule</span>
+              Double score is activated
+            </div>
+            <div class="game-rule">
+              <span class="rule-tag blue">Rule</span>
+              2 possessions per team
+            </div>
+            <div class="game-rule">
+              <span class="rule-tag green">Format</span>
+              Game to 3 → Game to 2 → Game to 1
+            </div>
+          </div>
+          <div class="win-note">🏆 &nbsp; Win the Final Game</div>
+        </div>
+      </div>
+
+      <div class="code-box">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre>
+<span class="comment">&lt;!-- Games Block --&gt;</span>
+<span class="comment">&lt;!-- rule-tag blue = blue badge, rule-tag green = green badge --&gt;</span>
+
+<span class="tag">&lt;div</span> <span class="attr">class=</span><span class="val">"games-block"</span><span class="tag">&gt;</span>
+
+  <span class="tag">&lt;div</span> <span class="attr">class=</span><span class="val">"block-label green"</span><span class="tag">&gt;</span>Game Format<span class="tag">&lt;/div&gt;</span>
+
+  <span class="tag">&lt;div</span> <span class="attr">class=</span><span class="val">"game-rules"</span><span class="tag">&gt;</span>
+
+    <span class="comment">&lt;!-- Add or remove game-rule rows as needed --&gt;</span>
+    <span class="tag">&lt;div</span> <span class="attr">class=</span><span class="val">"game-rule"</span><span class="tag">&gt;</span>
+      <span class="tag">&lt;span</span> <span class="attr">class=</span><span class="val">"rule-tag blue"</span><span class="tag">&gt;</span>Rule<span class="tag">&lt;/span&gt;</span>
+      Double score is activated
+    <span class="tag">&lt;/div&gt;</span>
+
+    <span class="tag">&lt;div</span> <span class="attr">class=</span><span class="val">"game-rule"</span><span class="tag">&gt;</span>
+      <span class="tag">&lt;span</span> <span class="attr">class=</span><span class="val">"rule-tag blue"</span><span class="tag">&gt;</span>Rule<span class="tag">&lt;/span&gt;</span>
+      2 possessions per team
+    <span class="tag">&lt;/div&gt;</span>
+
+    <span class="tag">&lt;div</span> <span class="attr">class=</span><span class="val">"game-rule"</span><span class="tag">&gt;</span>
+      <span class="tag">&lt;span</span> <span class="attr">class=</span><span class="val">"rule-tag green"</span><span class="tag">&gt;</span>Format<span class="tag">&lt;/span&gt;</span>
+      Game to 3 → Game to 2 → Game to 1
+    <span class="tag">&lt;/div&gt;</span>
+
+  <span class="tag">&lt;/div&gt;</span>
+
+  <span class="comment">&lt;!-- Green win banner at the bottom --&gt;</span>
+  <span class="tag">&lt;div</span> <span class="attr">class=</span><span class="val">"win-note"</span><span class="tag">&gt;</span>🏆 &amp;nbsp; Win the Final Game<span class="tag">&lt;/div&gt;</span>
+
+<span class="tag">&lt;/div&gt;</span></pre>
+      </div>
+      <div class="tip-box"><strong>Tip:</strong> Change the badge label text ("Rule", "Format") and the description text freely. Add as many <code>game-rule</code> rows as you need.</div>
+    </div>
+
+
+    <!-- ============================================================
+         7. INSERTING AN IMAGE
+         ============================================================ -->
+    <div class="component-section" id="image">
+      <div class="component-label">
+        <div class="num">7</div>
+        <h2>Inserting an Image</h2>
+      </div>
+
+      <div class="preview-box">
+        <img src="media/image4.png" alt="Example drill diagram" class="drill-image"/>
+        <p class="image-caption">Example caption: Reset drill diagram</p>
+      </div>
+
+      <div class="code-box">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre>
+<span class="comment">&lt;!-- Image — full width with rounded border --&gt;</span>
+<span class="comment">&lt;!-- Place your image file in the /media/ folder alongside your HTML --&gt;</span>
+
+<span class="tag">&lt;img</span>
+  <span class="attr">src=</span><span class="val">"media/your-image-name.png"</span>
+  <span class="attr">alt=</span><span class="val">"Brief description of image"</span>
+  <span class="attr">class=</span><span class="val">"drill-image"</span>
+<span class="tag">/&gt;</span>
+
+<span class="comment">&lt;!-- Optional caption underneath --&gt;</span>
+<span class="tag">&lt;p</span> <span class="attr">class=</span><span class="val">"image-caption"</span><span class="tag">&gt;</span>Your caption text here<span class="tag">&lt;/p&gt;</span></pre>
+      </div>
+      <div class="tip-box"><strong>Tip:</strong> Put your image file inside the <code>media/</code> folder in your site folder. Then reference it as <code>media/filename.png</code>. Supported formats: .png .jpg .gif .webp</div>
+    </div>
+
+
+    <!-- ============================================================
+         8. EMBEDDING A VIDEO
+         ============================================================ -->
+    <div class="component-section" id="video">
+      <div class="component-label">
+        <div class="num">8</div>
+        <h2>Embedding a Video</h2>
+      </div>
+
+      <div class="preview-box">
+        <h3 style="font-size:16px;font-weight:700;color:var(--text);margin-bottom:12px;">Drill Explanation</h3>
+        <div style="font-size:13px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--blue);margin-bottom:10px;">Drill 2</div>
+        <div class="iframe-wrap">
+          <iframe width="100%" height="300" src="https://www.ultiplays.com/embed/N3BJ0vMN4auEXJxwNj4R" frameborder="0" allowfullscreen></iframe>
+        </div>
+      </div>
+
+      <div class="code-box">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre>
+<span class="comment">&lt;!-- Video Embed Section --&gt;</span>
+<span class="comment">&lt;!-- Works with Ultiplays, YouTube, Vimeo — just swap the src URL --&gt;</span>
+
+<span class="comment">&lt;!-- Section heading --&gt;</span>
+<span class="tag">&lt;h3&gt;</span>Drill Explanation<span class="tag">&lt;/h3&gt;</span>
+
+<span class="comment">&lt;!-- Optional sub-label above the video --&gt;</span>
+<span class="tag">&lt;div</span> <span class="attr">class=</span><span class="val">"block-label blue"</span><span class="tag">&gt;</span>Drill 2<span class="tag">&lt;/div&gt;</span>
+
+<span class="comment">&lt;!-- The video wrapper --&gt;</span>
+<span class="tag">&lt;div</span> <span class="attr">class=</span><span class="val">"iframe-wrap"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;iframe</span>
+    <span class="attr">width=</span><span class="val">"100%"</span>
+    <span class="attr">height=</span><span class="val">"400"</span>
+    <span class="attr">src=</span><span class="val">"PASTE-YOUR-EMBED-URL-HERE"</span>
+    <span class="attr">frameborder=</span><span class="val">"0"</span>
+    <span class="attr">allowfullscreen</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;/iframe&gt;</span>
+<span class="tag">&lt;/div&gt;</span>
+
+<span class="comment">&lt;!--
+  HOW TO GET EMBED URLS:
+  Ultiplays: Share button → Copy Embed → use the src="..." URL only
+  YouTube:   Share → Embed → copy the src="..." URL (looks like youtube.com/embed/VIDEOID)
+  Vimeo:     Share → Embed → copy the src="..." URL
+--&gt;</span></pre>
+      </div>
+      <div class="tip-box"><strong>Tip:</strong> Only paste the URL that goes inside <code>src="..."</code> — not the full embed code block. Change the <code>height</code> number to make the player taller or shorter.</div>
+    </div>
+
+
+    <!-- ============================================================
+         9. COLLAPSIBLE SECTION ("Inside Joel's Mind")
+         ============================================================ -->
+    <div class="component-section" id="collapsible">
+      <div class="component-label">
+        <div class="num">9</div>
+        <h2>Collapsible Section</h2>
+      </div>
+
+      <div class="preview-box">
+        <details class="collapsible">
+          <summary>
+            <h3>Inside Joel's Mind</h3>
+            <span class="chevron">▾</span>
+          </summary>
+          <div class="coll-body">
+            <p>This content is hidden until the user clicks to expand it. Great for optional reading, long notes, or anything that shouldn't clutter the main page.</p>
+            <p style="margin-top:10px;">You can put any content in here — text, bullet lists, images, even more code blocks.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="code-box">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre>
+<span class="comment">&lt;!-- Collapsible / Expandable Section --&gt;</span>
+<span class="comment">&lt;!-- Clicking the summary row toggles the content open/closed --&gt;</span>
+
+<span class="tag">&lt;details</span> <span class="attr">class=</span><span class="val">"collapsible"</span><span class="tag">&gt;</span>
+
+  <span class="comment">&lt;!-- This is the clickable header bar --&gt;</span>
+  <span class="tag">&lt;summary&gt;</span>
+    <span class="tag">&lt;h3&gt;</span>Inside Joel's Mind<span class="tag">&lt;/h3&gt;</span>
+    <span class="tag">&lt;span</span> <span class="attr">class=</span><span class="val">"chevron"</span><span class="tag">&gt;</span>▾<span class="tag">&lt;/span&gt;</span>
+  <span class="tag">&lt;/summary&gt;</span>
+
+  <span class="comment">&lt;!-- This content shows when expanded --&gt;</span>
+  <span class="tag">&lt;div</span> <span class="attr">class=</span><span class="val">"coll-body"</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;p&gt;</span>Your hidden content goes here. Can be as long as you like.<span class="tag">&lt;/p&gt;</span>
+    <span class="tag">&lt;p&gt;</span>Add more paragraphs, lists, images — anything.<span class="tag">&lt;/p&gt;</span>
+  <span class="tag">&lt;/div&gt;</span>
+
+<span class="tag">&lt;/details&gt;</span></pre>
+      </div>
+      <div class="tip-box"><strong>Tip:</strong> Add <code>open</code> to the <code>&lt;details&gt;</code> tag (e.g. <code>&lt;details class="collapsible" open&gt;</code>) if you want it to start expanded by default.</div>
+    </div>
+
+
+    <!-- ============================================================
+         10. SESSION AIMS BLOCK
+         ============================================================ -->
+    <div class="component-section" id="aims">
+      <div class="component-label">
+        <div class="num">10</div>
+        <h2>Session Aims Block</h2>
+      </div>
+
+      <div class="preview-box">
+        <div class="aims-block">
+          <div class="block-label blue">Session Aims</div>
+          <ul class="aims-list">
+            <li>Generating flow from resets</li>
+            <li>Horizontal endzone practise</li>
+            <li>Maintaining flow from continuation</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="code-box">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre>
+<span class="comment">&lt;!-- Session Aims Block --&gt;</span>
+<span class="comment">&lt;!-- Auto-numbered list with blue left border --&gt;</span>
+
+<span class="tag">&lt;div</span> <span class="attr">class=</span><span class="val">"aims-block"</span><span class="tag">&gt;</span>
+
+  <span class="tag">&lt;div</span> <span class="attr">class=</span><span class="val">"block-label blue"</span><span class="tag">&gt;</span>Session Aims<span class="tag">&lt;/div&gt;</span>
+
+  <span class="tag">&lt;ul</span> <span class="attr">class=</span><span class="val">"aims-list"</span><span class="tag">&gt;</span>
+    <span class="comment">&lt;!-- Numbers are added automatically — just add li items --&gt;</span>
+    <span class="tag">&lt;li&gt;</span>Generating flow from resets<span class="tag">&lt;/li&gt;</span>
+    <span class="tag">&lt;li&gt;</span>Horizontal endzone practise<span class="tag">&lt;/li&gt;</span>
+    <span class="tag">&lt;li&gt;</span>Maintaining flow from continuation<span class="tag">&lt;/li&gt;</span>
+  <span class="tag">&lt;/ul&gt;</span>
+
+<span class="tag">&lt;/div&gt;</span></pre>
+      </div>
+      <div class="tip-box"><strong>Tip:</strong> The numbers (01, 02, 03...) are added automatically by CSS — just add or remove <code>&lt;li&gt;</code> lines and the numbering updates itself.</div>
+    </div>
+
+  </div><!-- /tut-container -->
+
+  <script>
+    function copyCode(btn) {
+      const pre = btn.closest('.code-box').querySelector('pre');
+      const text = pre.innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.textContent = 'Copy';
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    }
+  </script>
+
+</body>
+</html>

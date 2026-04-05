@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Footage Review — Team Hub</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+  <nav>
+    <a class="nav-logo" href="index.html">Team Hub</a>
+    <ul class="nav-links">
+      <li><a href="training.html">Training</a></li>
+      <li><a href="footage.html">Footage</a></li>
+      <li><a href="scouting.html">Scouting</a></li>
+    </ul>
+  </nav>
+
+  <div class="page-banner">
+    <div class="container">
+      <div class="breadcrumb"><a href="index.html">Home</a> / Footage Review</div>
+      <h1>Footage Review</h1>
+      <p>Game film, session recordings and play-by-play breakdowns.</p>
+    </div>
+  </div>
+
+  <div class="container">
+
+    <div class="empty-state">
+      <span class="icon">🎬</span>
+      <h2>No footage added yet</h2>
+      <p>This section is ready to be populated with game film, session clips and video breakdowns. Follow the instructions below to add your first entry.</p>
+
+      <div class="instructions-box">
+        <h3>How to add footage</h3>
+        <ol>
+          <li>Get an embed link from your video platform — YouTube, Vimeo, or Ultiplays all provide embed codes via a <strong>Share → Embed</strong> option.</li>
+          <li>Open <code>footage.html</code> in VS Code.</li>
+          <li>Remove or hide the empty-state block (the grey dashed box section).</li>
+          <li>Add a card for each video using a <code>&lt;div class="footage-card"&gt;</code> block — paste the iframe embed inside it, then add a title and date below.</li>
+          <li>Save the file and re-upload the site folder to Netlify.</li>
+          <li>Repeat for each new game or session recording.</li>
+        </ol>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>

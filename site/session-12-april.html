@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Session – 12 April — Team Hub</title>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+
+    .session-layout {
+      padding: 48px 0 80px;
+    }
+
+    /* ---- Aims block ---- */
+    .aims-block {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--blue);
+      border-radius: 0 12px 12px 0;
+      padding: 28px 32px;
+      margin-bottom: 40px;
+    }
+
+    .block-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 14px;
+    }
+
+    .aims-list {
+      list-style: none;
+      counter-reset: aims;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .aims-list li {
+      counter-increment: aims;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      font-size: 15px;
+      color: var(--text);
+    }
+
+    .aims-list li::before {
+      content: counter(aims, decimal-leading-zero);
+      font-family: 'Mackintosh', Georgia, serif;
+      font-size: 20px;
+      color: var(--blue);
+      min-width: 28px;
+      line-height: 1.4;
+    }
+
+    /* ---- Divider ---- */
+    .section-divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 36px 0;
+    }
+
+    /* ---- Timeline ---- */
+    .timeline { display: flex; flex-direction: column; }
+
+    .time-row {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 24px;
+      align-items: start;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .time-row:last-child { border-bottom: none; }
+
+    .time-stamp {
+      font-family: 'Mackintosh', Georgia, serif;
+      font-size: 20px;
+      color: var(--blue);
+      padding-top: 2px;
+    }
+
+    .time-body h3 {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 2px;
+    }
+
+    .time-body p {
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    /* ---- Zone cards ---- */
+    .zone-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin: 24px 0;
+    }
+
+    @media (max-width: 600px) { .zone-grid { grid-template-columns: 1fr; } }
+
+    .zone-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+    }
+
+    .zone-card.offence { border-top: 3px solid var(--blue); }
+    .zone-card.defence { border-top: 3px solid var(--green); }
+
+    .zone-card h3 {
+      font-size: 18px;
+      letter-spacing: 0.03em;
+      margin-bottom: 16px;
+    }
+
+    .zone-card.offence h3 { color: var(--blue); }
+    .zone-card.defence h3 { color: var(--green); }
+
+    .bullet-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .bullet-list > li {
+      font-size: 13.5px;
+      color: var(--text);
+      padding-left: 16px;
+      position: relative;
+      line-height: 1.5;
+    }
+
+    .bullet-list > li::before {
+      content: '–';
+      position: absolute;
+      left: 0;
+      color: var(--muted);
+    }
+
+    .sub-list {
+      list-style: none;
+      padding-left: 14px;
+      margin-top: 4px;
+    }
+
+    .sub-list li {
+      font-size: 12.5px;
+      color: var(--muted);
+      padding-left: 12px;
+      position: relative;
+      line-height: 1.6;
+    }
+
+    .sub-list li::before {
+      content: '·';
+      position: absolute;
+      left: 0;
+    }
+
+    /* ---- Points block ---- */
+    .points-block {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px 32px;
+      margin: 8px 0 24px;
+    }
+
+    .points-block .block-label { margin-bottom: 6px; }
+
+    .points-intro {
+      font-size: 13.5px;
+      color: var(--muted);
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+    }
+
+    @media (max-width: 600px) { .two-col { grid-template-columns: 1fr; } }
+
+    .col-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding-bottom: 10px;
+      margin-bottom: 12px;
+      border-bottom: 2px solid;
+    }
+
+    .col-label.blue { color: var(--blue); border-color: var(--blue); }
+    .col-label.green { color: var(--green); border-color: var(--green); }
+
+    /* ---- Break badge ---- */
+    .break-badge {
+      display: flex;
+      justify-content: center;
+      margin: 32px 0;
+    }
+
+    .break-badge span {
+      background: #f9fafb;
+      border: 1px solid var(--border);
+      border-radius: 99px;
+      padding: 8px 24px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* ---- Games block ---- */
+    .games-block {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--green);
+      border-radius: 0 12px 12px 0;
+      padding: 28px 32px;
+    }
+
+    .games-block .block-label { color: var(--green); }
+
+    .game-rules {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 4px;
+    }
+
+    .game-rule {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 14px;
+      color: var(--text);
+    }
+
+    .rule-tag {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 3px 9px;
+      border-radius: 4px;
+      white-space: nowrap;
+      margin-top: 2px;
+    }
+
+    .rule-tag.blue { background: var(--blue-light); color: var(--blue); }
+    .rule-tag.green { background: var(--green-light); color: var(--green); }
+
+    .win-note {
+      margin-top: 20px;
+      padding: 14px 20px;
+      background: var(--green-light);
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--green);
+      text-align: center;
+    }
+
+    /* ---- Footage embed ---- */
+    .footage-section { margin-top: 56px; }
+
+    .footage-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .footage-header h2 { font-size: 24px; }
+
+    .footage-header .line {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .iframe-wrap {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      padding: 4px;
+    }
+
+    .iframe-wrap iframe {
+      display: block;
+      width: 100%;
+      border-radius: 9px;
+    }
+
+    .mind-section p {
+      font-size: 14px;
+      color: #374151;
+      line-height: 1.8;
+      margin-bottom: 10px;
+    }
+
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="nav-logo" href="index.html">Team Hub</a>
+    <ul class="nav-links">
+      <li><a href="training.html" class="active-blue">Training</a></li>
+      <li><a href="footage.html">Footage</a></li>
+      <li><a href="scouting.html">Scouting</a></li>
+    </ul>
+  </nav>
+
+  <div class="page-banner banner-blue">
+    <div class="container">
+      <div class="breadcrumb">
+        <a href="index.html">Home</a> / <a href="training.html">Training Plans</a> / 12 April
+      </div>
+      <h1>12 April</h1>
+      <p>Zone Defence &amp; Offence — 2 hours, 3:00 PM sharp</p>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="session-layout">
+
+      <!-- Aims -->
+      <div class="aims-block">
+        <div class="block-label">Session Aims</div>
+        <ul class="aims-list">
+          <li>Practise our offence against Zone Defence</li>
+          <li>Practise our Zone Defence</li>
+          <li>Work on our fitness and disc skills</li>
+        </ul>
+      </div>
+
+      <hr class="section-divider">
+
+      <!-- Timeline -->
+      <div class="timeline">
+        <div class="time-row">
+          <div class="time-stamp">3:00</div>
+          <div class="time-body">
+            <h3>Session Starts (Sharp)</h3>
+            <p>Chat and warm up</p>
+          </div>
+        </div>
+        <div class="time-row">
+          <div class="time-stamp">3:15</div>
+          <div class="time-body">
+            <h3>Throwing Warm Up</h3>
+          </div>
+        </div>
+      </div>
+
+      <hr class="section-divider">
+
+      <!-- Zone -->
+      <div class="time-row" style="border-bottom:none; padding-bottom:8px;">
+        <div class="time-stamp">3:30</div>
+        <div class="time-body"><h3>Zone</h3></div>
+      </div>
+
+      <img src="media/Image6.png" alt="Zone diagram" style="width:100%; border-radius:10px; border:1px solid var(--border); margin-bottom:20px; display:block;"/>
+
+      <div class="zone-grid">
+        <div class="zone-card offence">
+          <h3>Zone Offence</h3>
+          <ul class="bullet-list">
+            <li>Don't crowd the disc</li>
+            <li>Take on swings</li>
+            <li>First attempt — be aggressive. Second attempt — do the hard work and be patient</li>
+            <li>Don't get greedy</li>
+          </ul>
+        </div>
+        <div class="zone-card defence">
+          <h3>Zone Defence</h3>
+          <ul class="bullet-list">
+            <li>
+              Understand the objective of the zone
+              <ul class="sub-list">
+                <li>Slow them down, create pressure, get them trapped</li>
+              </ul>
+            </li>
+            <li>
+              Comms
+              <ul class="sub-list">
+                <li>Sidelines → Deep → Wings/Mids → Front</li>
+              </ul>
+            </li>
+            <li>See the players, not the disc</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Zone points -->
+      <div class="points-block">
+        <div class="block-label">3:35 – 4:10 &nbsp; Zone Points — Learn by Doing</div>
+        <p class="points-intro">One possession per team. If you score on offence, drop the disc and play defence.</p>
+        <div class="two-col">
+          <div>
+            <div class="col-label blue">O Line Aims</div>
+            <ul class="bullet-list">
+              <li>Get reps trying to score as quickly as possible</li>
+              <li>Get reps doing the hard work — taking 100 passes if necessary</li>
+              <li>Get practise recovering on to defence after a turnover</li>
+            </ul>
+          </div>
+          <div>
+            <div class="col-label green">D Line Aims</div>
+            <ul class="bullet-list">
+              <li>Get repetition of our standard Zone look</li>
+              <li>
+                Introduce flexibility with adaptive looks
+                <ul class="sub-list">
+                  <li>Assassin, 421, 241 etc.</li>
+                </ul>
+              </li>
+              <li>Practise our transition D</li>
+              <li>Make the most of our offensive opportunities</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <hr class="section-divider">
+
+      <!-- Break -->
+      <div class="break-badge"><span>⏸ &nbsp; 4:10 – 4:15 &nbsp; Break</span></div>
+
+      <!-- Throwing drill -->
+      <div class="time-row" style="border-bottom:none;">
+        <div class="time-stamp">4:15</div>
+        <div class="time-body">
+          <h3>Throwing Drill 2</h3>
+          <p>Practise hitting the correct shoulder</p>
+        </div>
+      </div>
+
+      <hr class="section-divider">
+
+      <!-- Games -->
+      <div class="time-row" style="border-bottom:none; padding-bottom:16px;">
+        <div class="time-stamp">4:30</div>
+        <div class="time-body"><h3>Games</h3></div>
+      </div>
+
+      <div class="games-block">
+        <div class="block-label">Game Format</div>
+        <div class="game-rules">
+          <div class="game-rule">
+            <span class="rule-tag blue">Rule</span>
+            Double score is activated
+          </div>
+          <div class="game-rule">
+            <span class="rule-tag blue">Rule</span>
+            2 possessions per team
+          </div>
+          <div class="game-rule">
+            <span class="rule-tag green">Format</span>
+            Game to 3 → Game to 2 → Game to 1
+          </div>
+        </div>
+        <div class="win-note">🏆 &nbsp; Win the Final Game</div>
+      </div>
+
+      <!-- Drill Explanation embed -->
+      <div class="footage-section">
+        <div class="footage-header">
+          <h2>Drill Explanation</h2>
+          <div class="line"></div>
+        </div>
+  <h3 style="font-size:16px; font-weight:700; color:var(--text); margin-bottom:12px;"> Throwing drill 1</h3>
+        <div class="iframe-wrap">
+         <iframe width="574px" height="501px" src="https://www.ultiplays.com/embed/8qDYx2ZxMMUXqdwmXDel" frameborder="0" allowfullscreen></iframe>
+        </div>
+      </div>
+
+<hr class="section-divider">
+
+        <h3 style="font-size:16px; font-weight:700; color:var(--text); margin-bottom:12px;"> Throwing drill 2</h3>
+        <div class="iframe-wrap">
+          <iframe
+            width="574"
+            height="501"
+            src="https://www.ultiplays.com/embed/N3BJ0vMN4auEXJxwNj4R"
+            frameborder="0"
+            allowfullscreen>
+          </iframe>
+        </div>
+      </div>
+
+      <hr class="section-divider">
+
+<!-- Joel thoughts -->
+
+
+<div class="footage-section">
+        <div class="footage-header">
+          <h2>Joel Thoughts</h2>
+          <div class="line"></div>
+        </div>
+
+ <div class="mind-section">
+            <h3>Introduction</h3>
+            <p>A bit more insight into the thinking behind what I do on the pitch — particularly around handling and resetting. A lot of this doesn't come up in training because we're focused on drills, but I think the 'why' behind decisions matters.</p>
+          </div>
+
+
+    </div>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Session – 22 March — Team Hub</title>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+
+    .session-layout {
+      padding: 48px 0 80px;
+    }
+
+    /* ---- Aims block ---- */
+    .aims-block {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--blue);
+      border-radius: 0 12px 12px 0;
+      padding: 28px 32px;
+      margin-bottom: 40px;
+    }
+
+    .block-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 14px;
+    }
+
+    .block-label.green { color: var(--green); }
+
+    .aims-list {
+      list-style: none;
+      counter-reset: aims;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .aims-list li {
+      counter-increment: aims;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      font-size: 15px;
+      color: var(--text);
+    }
+
+    .aims-list li::before {
+      content: counter(aims, decimal-leading-zero);
+      font-family: 'Mackintosh', Georgia, serif;
+      font-size: 20px;
+      color: var(--blue);
+      min-width: 28px;
+      line-height: 1.4;
+    }
+
+    /* ---- Divider ---- */
+    .section-divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 36px 0;
+    }
+
+    /* ---- Timeline rows ---- */
+    .time-row {
+      display: grid;
+      grid-template-columns: 90px 1fr;
+      gap: 24px;
+      align-items: start;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .time-row:last-child { border-bottom: none; }
+    .time-row.no-border { border-bottom: none; }
+
+    .time-stamp {
+      font-family: 'Mackintosh', Georgia, serif;
+      font-size: 20px;
+      color: var(--blue);
+      padding-top: 2px;
+    }
+
+    .time-body h3 {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .time-body p {
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    /* ---- Content card ---- */
+    .content-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px 32px;
+      margin: 16px 0 24px;
+    }
+
+    .content-card.blue-top { border-top: 3px solid var(--blue); }
+    .content-card.green-top { border-top: 3px solid var(--green); }
+
+    .content-card h3 {
+      font-size: 18px;
+      letter-spacing: 0.02em;
+      margin-bottom: 10px;
+      color: var(--text);
+    }
+
+    .italic-intro {
+      font-style: italic;
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 16px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border);
+      line-height: 1.7;
+    }
+
+    .bullet-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .bullet-list li {
+      font-size: 14px;
+      color: var(--text);
+      padding-left: 16px;
+      position: relative;
+      line-height: 1.6;
+    }
+
+    .bullet-list li::before {
+      content: '–';
+      position: absolute;
+      left: 0;
+      color: var(--muted);
+    }
+
+    .numbered-list {
+      list-style: none;
+      counter-reset: items;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .numbered-list li {
+      counter-increment: items;
+      display: flex;
+      gap: 12px;
+      font-size: 14px;
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .numbered-list li::before {
+      content: counter(items) '.';
+      color: var(--blue);
+      font-weight: 700;
+      min-width: 20px;
+    }
+
+    /* ---- Drill image ---- */
+    .drill-image {
+      width: 100%;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      margin: 16px 0;
+      display: block;
+    }
+
+    .image-caption {
+      font-size: 12px;
+      color: var(--muted);
+      font-style: italic;
+      text-align: center;
+      margin-top: -8px;
+      margin-bottom: 16px;
+    }
+
+    /* ---- Link tag ---- */
+    .drill-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--blue);
+      text-decoration: none;
+      background: var(--blue-light);
+      padding: 5px 12px;
+      border-radius: 99px;
+      margin: 8px 0 14px;
+      transition: opacity 0.2s;
+    }
+    .drill-link:hover { opacity: 0.75; }
+
+    /* ---- Break badge ---- */
+    .break-badge {
+      display: flex;
+      justify-content: center;
+      margin: 32px 0;
+    }
+
+    .break-badge span {
+      background: #f9fafb;
+      border: 1px solid var(--border);
+      border-radius: 99px;
+      padding: 8px 24px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* ---- Highlight quote ---- */
+    .coach-note {
+      background: var(--blue-light);
+      border-left: 3px solid var(--blue);
+      border-radius: 0 8px 8px 0;
+      padding: 14px 20px;
+      font-size: 13.5px;
+      font-style: italic;
+      color: var(--blue);
+      margin: 12px 0;
+    }
+
+    /* ---- Games block ---- */
+    .games-block {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--green);
+      border-radius: 0 12px 12px 0;
+      padding: 28px 32px;
+    }
+
+    .games-block .block-label { color: var(--green); }
+
+    .game-rules {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 4px;
+    }
+
+    .game-rule {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 14px;
+      color: var(--text);
+    }
+
+    .rule-tag {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 3px 9px;
+      border-radius: 4px;
+      white-space: nowrap;
+      margin-top: 2px;
+    }
+
+    .rule-tag.blue { background: var(--blue-light); color: var(--blue); }
+    .rule-tag.green { background: var(--green-light); color: var(--green); }
+
+    .win-note {
+      margin-top: 20px;
+      padding: 14px 20px;
+      background: var(--green-light);
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--green);
+      text-align: center;
+    }
+
+    /* ---- Drills explained section ---- */
+    .drills-section {
+      margin-top: 56px;
+    }
+
+    .drills-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .drills-header h2 {
+      font-size: 28px;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+
+    .drills-header .line {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ---- Joel's Mind collapsible ---- */
+    .joels-mind {
+      margin-top: 48px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .joels-mind summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 28px;
+      cursor: pointer;
+      background: var(--white);
+      list-style: none;
+      user-select: none;
+    }
+
+    .joels-mind summary::-webkit-details-marker { display: none; }
+
+    .joels-mind summary .summary-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .joels-mind summary h2 {
+      font-size: 20px;
+      color: var(--text);
+    }
+
+    .joels-mind summary .disclaimer {
+      font-size: 12px;
+      color: var(--muted);
+      font-style: italic;
+      font-family: 'Lato', sans-serif;
+    }
+
+    .joels-mind summary .chevron {
+      font-size: 18px;
+      color: var(--muted);
+      transition: transform 0.3s;
+    }
+
+    details[open] .chevron { transform: rotate(180deg); }
+
+    .joels-mind .mind-content {
+      padding: 28px 32px;
+      background: #fafbfc;
+      border-top: 1px solid var(--border);
+    }
+
+    .mind-section {
+      margin-bottom: 32px;
+      padding-bottom: 32px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .mind-section:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+
+    .mind-section h3 {
+      font-size: 20px;
+      color: var(--blue);
+      margin-bottom: 12px;
+      letter-spacing: 0.02em;
+    }
+
+    .mind-section h4 {
+      font-size: 15px;
+      color: var(--text);
+      margin: 16px 0 8px;
+    }
+
+    .mind-section p {
+      font-size: 14px;
+      color: #374151;
+      line-height: 1.8;
+      margin-bottom: 10px;
+    }
+
+    .mind-section ul {
+      padding-left: 20px;
+      margin: 8px 0;
+    }
+
+    .mind-section ul li {
+      font-size: 14px;
+      color: #374151;
+      line-height: 1.7;
+      margin-bottom: 4px;
+    }
+
+    /* ---- Video embed ---- */
+    .footage-section { margin-top: 56px; }
+
+    .footage-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .footage-header h2 { font-size: 24px; }
+
+    .footage-header .line {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .video-wrap {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      padding: 4px;
+    }
+
+    .video-wrap iframe {
+      display: block;
+      width: 100%;
+      border-radius: 9px;
+    }
+
+    .video-caption {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 10px;
+      font-style: italic;
+    }
+
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="nav-logo" href="index.html">Team Hub</a>
+    <ul class="nav-links">
+      <li><a href="training.html" class="active-blue">Training</a></li>
+      <li><a href="footage.html">Footage</a></li>
+      <li><a href="scouting.html">Scouting</a></li>
+    </ul>
+  </nav>
+
+  <div class="page-banner banner-blue">
+    <div class="container">
+      <div class="breadcrumb">
+        <a href="index.html">Home</a> / <a href="training.html">Training Plans</a> / 22 March
+      </div>
+      <h1>22 March</h1>
+      <p>Generating Flow &amp; Resets — 3 hours, 2:00 PM</p>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="session-layout">
+
+      <!-- Aims -->
+      <div class="aims-block">
+        <div class="block-label">Session Aims</div>
+        <ul class="aims-list">
+          <li>Generating flow from resets</li>
+          <li>Horizontal endzone practise</li>
+          <li>Maintaining flow from continuation</li>
+        </ul>
+      </div>
+
+      <hr class="section-divider">
+
+      <!-- Timeline: start + warm up -->
+      <div class="time-row">
+        <div class="time-stamp">2:00</div>
+        <div class="time-body">
+          <h3>Session Start</h3>
+          <p>Chat and warm up</p>
+        </div>
+      </div>
+
+      <div class="time-row">
+        <div class="time-stamp">2:15</div>
+        <div class="time-body">
+          <h3>Throwing Warm Up — 4 Lines Break Force</h3>
+          <a href="https://www.ultiplays.com/shares/8qDYx2ZxMMUXqdwmXDel" target="_blank" class="drill-link">▶ View Drill on Ultiplays</a>
+          <ul class="bullet-list">
+            <li>Work on hitting slash cuts with an inside break (inside force)</li>
+            <li>Work on hitting arounds (reset-like cuts) — flat force, but give the around throw</li>
+          </ul>
+        </div>
+      </div>
+
+      <hr class="section-divider">
+
+      <!-- Resetting -->
+      <div class="time-row no-border">
+        <div class="time-stamp">2:30</div>
+        <div class="time-body">
+          <h3>Resetting</h3>
+        </div>
+      </div>
+
+      <div class="content-card blue-top">
+        <div class="italic-intro">
+          Handlers generate momentum (flow), cutters maintain it.<br>
+          Mindset shift: instead of resetting the stall, we are resetting the momentum.
+        </div>
+        <div class="block-label" style="margin-bottom:12px;">Guidelines</div>
+        <ol class="numbered-list">
+          <li>Look reset early — gives handlers confidence to clear through instead of clogging</li>
+          <li>Be in motion — harder for the defence to control and reduces miscommunication turnovers</li>
+          <li>1st option: look to be aggressive — cut upline</li>
+          <li>In the handler space: keep the disc moving by hitting the continuation option</li>
+        </ol>
+      </div>
+
+      <!-- Reset image -->
+      <img src="media/image4.png" alt="Reset diagram" class="drill-image"/>
+
+      <!-- Breakside resetting -->
+      <div class="time-row no-border" style="margin-top:8px;">
+        <div class="time-stamp">2:35</div>
+        <div class="time-body">
+          <h3>Breakside Resetting</h3>
+        </div>
+      </div>
+
+      <div class="content-card blue-top">
+        <ul class="bullet-list">
+          <li><strong>Drill 1</strong> — Groups of 3 going through the motions, 10 reps each</li>
+          <li><strong>Drill 2</strong> — Bring it back together, add a 3rd handler and downfield continuation. Introduce option for 3rd handler to clear through creating a big swing</li>
+        </ul>
+      </div>
+
+      <!-- Open side resetting -->
+      <div class="time-row no-border">
+        <div class="time-stamp">3:00</div>
+        <div class="time-body">
+          <h3>Open Side Resetting</h3>
+        </div>
+      </div>
+
+      <div class="content-card blue-top">
+        <ul class="bullet-list">
+          <li><strong>Drill 3</strong> — Start off 50 off-hand throws each (avoid throwing flicks)</li>
+          <li><strong>Drill 4</strong> — Open side resets, groups of 6</li>
+        </ul>
+        <div class="coach-note" style="margin-top:14px;">
+          Review &amp; reflect: Look reset early. Keep moving.
+        </div>
+      </div>
+
+      <hr class="section-divider">
+
+      <!-- Break -->
+      <div class="break-badge"><span>⏸ &nbsp; 3:15 Break</span></div>
+
+      <hr class="section-divider">
+
+      <!-- Endzone -->
+      <div class="time-row no-border">
+        <div class="time-stamp">3:20</div>
+        <div class="time-body">
+          <h3>Endzone</h3>
+        </div>
+      </div>
+
+      <img src="media/image1.png" alt="Endzone diagram" class="drill-image"/>
+
+      <div class="content-card green-top">
+        <div class="block-label green">Guidelines</div>
+        <ol class="numbered-list">
+          <li>Side stack players stay disciplined and don't drift out to help</li>
+          <li>Once we have started a swing, finish it</li>
+          <li>ISO player — don't cut open as you clog the space for reset to cut upline</li>
+        </ol>
+      </div>
+
+      <div class="time-row">
+        <div class="time-stamp">3:25</div>
+        <div class="time-body">
+          <h3>5 Pull — Static Start</h3>
+          <p>Defence ramp it up slowly from 75% to 100% for the final rep</p>
+        </div>
+      </div>
+
+      <div class="time-row">
+        <div class="time-stamp">3:35</div>
+        <div class="time-body">
+          <h3>5 Pull — From Flow</h3>
+        </div>
+      </div>
+
+      <div class="time-row">
+        <div class="time-stamp">3:50</div>
+        <div class="time-body">
+          <h3>Best of 5 — Penalty Shoot Style</h3>
+        </div>
+      </div>
+
+      <hr class="section-divider">
+
+      <!-- Break 2 -->
+      <div class="break-badge">
+        <span>⏸ &nbsp; 4:00 Break — Tell someone who doesn't know, your frisbee journey</span>
+      </div>
+
+      <hr class="section-divider">
+
+      <!-- Games -->
+      <div class="time-row no-border">
+        <div class="time-stamp">4:10</div>
+        <div class="time-body">
+          <h3>Revolver Mini</h3>
+          <p>Move less but move with purpose</p>
+        </div>
+      </div>
+
+      <div class="time-row no-border" style="margin-top:8px;">
+        <div class="time-stamp">4:20</div>
+        <div class="time-body">
+          <h3>7s Full Pitch</h3>
+        </div>
+      </div>
+
+      <div class="games-block" style="margin-top:16px;">
+        <div class="block-label">Game Format</div>
+        <div class="game-rules">
+          <div class="game-rule">
+            <span class="rule-tag blue">Rule</span>
+            Double score activated
+          </div>
+          <div class="game-rule">
+            <span class="rule-tag blue">Rule</span>
+            4 possessions per point
+          </div>
+          <div class="game-rule">
+            <span class="rule-tag green">Format</span>
+            Game to 3 → Game to 2 → Game to 1 (if time)
+          </div>
+        </div>
+        <div class="win-note">🏆 &nbsp; Win the Final Game</div>
+      </div>
+
+      <hr class="section-divider">
+
+      <!-- Drills Explained -->
+      <div class="drills-section">
+        <div class="drills-header">
+          <h2>Drills Explained</h2>
+          <div class="line"></div>
+        </div>
+
+        <img src="media/image2.png" alt="Drill diagram 1" class="drill-image"/>
+        <img src="media/image3.png" alt="Drill diagram 2" class="drill-image"/>
+
+        <!-- Film clip -->
+        <div class="footage-section">
+          <div class="footage-header">
+            <h2>Film Example</h2>
+            <div class="line"></div>
+          </div>
+          <img src="media/image5.png" alt="Film still" class="drill-image"/>
+          <p class="video-caption">
+            Option A — Watch #98 in the middle. Normally would come back to complete the swing, but being marked out — holds back and allows a downfield cutter to come in.
+          </p>
+          <div class="video-wrap" style="margin-top:16px;">
+            <iframe
+              width="100%"
+              height="400"
+              src="https://www.youtube.com/embed/gS7WIifm-BY?start=2664"
+              frameborder="0"
+              allowfullscreen>
+            </iframe>
+          </div>
+          <p class="video-caption">Glasgow Ultimate (GBR) vs 4hands (POL) | Mixed | 2025 EUCF</p>
+        </div>
+      </div>
+
+      <!-- Joel's Mind -->
+      <details class="joels-mind">
+        <summary>
+          <div class="summary-left">
+            <h2>Inside Joel's Mind</h2>
+            <span class="disclaimer">You don't need to read this… (though point 7 is quite good)</span>
+          </div>
+          <span class="chevron">▾</span>
+        </summary>
+        <div class="mind-content">
+
+          <div class="mind-section">
+            <h3>Introduction</h3>
+            <p>A bit more insight into the thinking behind what I do on the pitch — particularly around handling and resetting. A lot of this doesn't come up in training because we're focused on drills, but I think the 'why' behind decisions matters.</p>
+          </div>
+
+          <div class="mind-section">
+            <h3>1. Resetting the Stall vs. Resetting the Momentum</h3>
+            <p>I was brought up thinking the reset was about getting the stall count back to zero. Looking back, I think that framing is a bit of a trap — it gives you licence to stare downfield for ages, because in the back of your mind the reset is just a safety net.</p>
+            <p>For me now, the reset is about generating momentum — keeping the disc moving, changing the angle of attack, making the defence react rather than letting them dictate.</p>
+            <ul>
+              <li>I want to get the disc moving quickly, even off a dead disc or a brick pull</li>
+              <li>From a dead disc, I give my cutters one move to get open. If it's not there, I'm already looking reset</li>
+              <li>I want that first reset cut to be aggressive and ideally upline, not just a passive backwards dump to safety</li>
+            </ul>
+          </div>
+
+          <div class="mind-section">
+            <h3>2. How I Think About a Dead Disc</h3>
+            <p>When I pick up a dead disc — off a stoppage, a time out, a brick — my mindset is that the defence is at its absolute strongest right now. They've had time to set up exactly how they want.</p>
+            <p>So I give my cutters one move, and if they're not open, I'm moving the disc to start generating flow. From a dead disc the defence is at its strongest; we need to move the disc to make them adjust. Once they're adjusting they're no longer dictating — they're reacting.</p>
+          </div>
+
+          <div class="mind-section">
+            <h3>3. Why I Usually Prefer the Swing Over the Upline</h3>
+            <p>Generally speaking, when I'm looking to reset, I'd rather find the swing than the upline. A swing changes the angle of attack — it makes the defence shift and react. An upline keeps the attack going in the same direction, which gives them less to deal with.</p>
+            <p>That said, if the upline is genuinely clean and open, I'm taking it. But if it's a bit tight, or the cutter's going to receive in an awkward position, I'll hold off and keep looking for the swing.</p>
+            <p><strong>One thing I feel strongly about:</strong> if the upline is taken, the receiver needs to catch and accelerate straight into a power position. An upline that leads to a static catch hasn't really achieved much.</p>
+          </div>
+
+          <div class="mind-section">
+            <h3>4. How Force Changes What I'm Looking For</h3>
+            <h4>When I'm Being Forced Backhand</h4>
+            <p>The backhand is much easier for me to control over short distances and tight windows. When I'm forced backhand I feel like I've got a lot of options — comfortable hitting a tight upline cut, and I like the big flick fake followed by a quick half-pivot around shot.</p>
+            <h4>When I'm Being Forced Flick</h4>
+            <p>The flick is a different story. I'm much more comfortable throwing longer flicks with a bit of roll curve on them than trying to fit a tight five-yard flick in flow. So when I'm forced flick, I'm looking for reset cuts that give me more room — bigger, wider cuts where I can throw a longer controlled flick with some shape on it.</p>
+            <p><em>These are my own strengths and weaknesses — yours might look quite different. The point is to think honestly about what you can actually throw well, and match the reset cut to that.</em></p>
+          </div>
+
+          <div class="mind-section">
+            <h3>5. The Open-Side 45 — My Favourite Position on the Pitch</h3>
+            <p>Setting up 45 degrees behind the disc on the open side is probably my favourite place to be on the whole pitch. I know I'm about to be on the ball, the handler is going to look at me, and I've got two really high-value options: power position for a big gain downfield, or a breakside continuation off a shoulder-drop fake.</p>
+            <p><strong>The biggest thing:</strong> I never want to receive a static pass at 45 degrees. If I'm just standing there and the disc comes to me, the defence has won that exchange. If my defender has poached into the lane and left me open, that's not a signal to stay put — it's a signal to move towards the breakside. That moves the disc away from where the defence wants it and forces them to react.</p>
+          </div>
+
+        </div>
+      </details>
+
+    </div>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Team Hub</title>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+
+    /* ---- Hero ---- */
+    .hero {
+      background: var(--white);
+      padding: 100px 40px 80px;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 50% 60% at 30% 50%, var(--blue-glow) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 60% at 70% 50%, var(--green-glow) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+
+    .hero h1 {
+      font-size: clamp(52px, 8vw, 100px);
+      line-height: 1;
+      letter-spacing: 0.02em;
+      color: var(--text);
+      position: relative;
+    }
+
+    .hero h1 .blue { color: var(--blue); }
+    .hero h1 .green { color: var(--green); }
+
+    .hero-sub {
+      font-size: 17px;
+      color: var(--muted);
+      margin-top: 20px;
+      font-weight: 300;
+    }
+
+    /* ---- Section cards grid ---- */
+    .sections-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      padding: 64px 40px 80px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 780px) {
+      .sections-grid { grid-template-columns: 1fr; padding: 40px 24px; }
+    }
+
+    .section-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 40px 32px 36px;
+      text-decoration: none;
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    }
+
+    .section-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.08);
+    }
+
+    .section-card.blue-card:hover { border-color: var(--blue); }
+    .section-card.green-card:hover { border-color: var(--green); }
+    .section-card.neutral-card:hover { border-color: #9ca3af; }
+
+    .section-card::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      border-radius: 16px 16px 0 0;
+    }
+    .blue-card::after { background: var(--blue); }
+    .green-card::after { background: var(--green); }
+    .neutral-card::after { background: #9ca3af; }
+
+    .card-icon {
+      font-size: 36px;
+      margin-bottom: 24px;
+      display: block;
+    }
+
+    .card-title {
+      font-size: 28px;
+      letter-spacing: 0.02em;
+      color: var(--text);
+      margin-bottom: 12px;
+      line-height: 1.1;
+    }
+
+    .card-desc {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.7;
+      flex: 1;
+    }
+
+    .card-arrow {
+      margin-top: 28px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: gap 0.2s;
+    }
+    .blue-card .card-arrow { color: var(--blue); }
+    .green-card .card-arrow { color: var(--green); }
+    .neutral-card .card-arrow { color: #6b7280; }
+    .section-card:hover .card-arrow { gap: 14px; }
+
+    .card-count {
+      position: absolute;
+      top: 20px;
+      right: 24px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      padding: 4px 10px;
+      border-radius: 99px;
+    }
+    .blue-card .card-count { background: var(--blue-light); color: var(--blue); }
+    .green-card .card-count { background: var(--green-light); color: var(--green); }
+    .neutral-card .card-count { background: #f3f4f6; color: #6b7280; }
+
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="nav-logo" href="index.html">Team Hub</a>
+    <ul class="nav-links">
+      <li><a href="training.html">Training</a></li>
+      <li><a href="footage.html">Footage</a></li>
+      <li><a href="scouting.html">Scouting</a></li>
+    </ul>
+  </nav>
+
+  <div class="hero">
+    <div class="hero-eyebrow">Team Portal</div>
+    <h1>Hillhead <span class="blue">mixed</span></h1>
+    <p class="hero-sub">Training plans, film review and scouting — all in one place.</p>
+  </div>
+
+  <div class="sections-grid">
+
+    <!-- Training Plans -->
+    <a href="training.html" class="section-card blue-card">
+      <span class="card-count">1 plan</span>
+      <span class="card-icon">📋</span>
+      <h2 class="card-title">Training Plans</h2>
+      <p class="card-desc">Session plans, drills, zone work and fitness. Browse and open individual session documents.</p>
+      <div class="card-arrow">Open <span>→</span></div>
+    </a>
+
+    <!-- Footage Review -->
+    <a href="footage.html" class="section-card neutral-card">
+      <span class="card-count">Coming soon</span>
+      <span class="card-icon">🎬</span>
+      <h2 class="card-title">Footage Review</h2>
+      <p class="card-desc">Game film, session recordings and play-by-play breakdowns to review as a team.</p>
+      <div class="card-arrow">Open <span>→</span></div>
+    </a>
+
+    <!-- Scouting -->
+    <a href="scouting.html" class="section-card green-card">
+      <span class="card-count">Coming soon</span>
+      <span class="card-icon">🔍</span>
+      <h2 class="card-title">Scouting</h2>
+      <p class="card-desc">Opponent analysis, play diagrams and tendencies. Know what you're up against before game day.</p>
+      <div class="card-arrow">Open <span>→</span></div>
+    </a>
+
+  </div>
+
+</body>
+</html>
