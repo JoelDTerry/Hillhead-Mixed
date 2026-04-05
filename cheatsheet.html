@@ -299,6 +299,7 @@
       <a href="#video">Embedding a Video</a>
       <a href="#collapsible">Collapsible Section</a>
       <a href="#aims">Session Aims Block</a>
+      <a href="#publish">Publishing a New Session</a>
     </nav>
   </div>
 
@@ -760,6 +761,85 @@
 <span class="tag">&lt;/div&gt;</span></pre>
       </div>
       <div class="tip-box"><strong>Tip:</strong> The numbers (01, 02, 03...) are added automatically by CSS — just add or remove <code>&lt;li&gt;</code> lines and the numbering updates itself.</div>
+    </div>
+
+    <!-- ============================================================
+         11. PUBLISHING A NEW SESSION
+         ============================================================ -->
+    <div class="component-section" id="publish">
+      <div class="component-label">
+        <div class="num">11</div>
+        <h2>Publishing a New Session</h2>
+      </div>
+
+      <div class="preview-box" style="padding:0; overflow:hidden;">
+
+        <div style="display:flex; flex-direction:column; gap:0;">
+
+          <!-- Step 1 -->
+          <div style="display:grid; grid-template-columns:48px 1fr; gap:20px; align-items:start; padding:24px 28px; border-bottom:1px solid var(--border);">
+            <div style="background:var(--blue);color:white;font-family:'Mackintosh',Georgia,serif;font-size:22px;width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;">1</div>
+            <div>
+              <h3 style="font-size:15px;font-weight:700;color:var(--text);margin-bottom:4px;">Send the session doc to Claude</h3>
+              <p style="font-size:14px;color:var(--muted);line-height:1.6;">Upload your Google Doc or .docx to Claude along with the <code style="background:var(--bg);border:1px solid var(--border);padding:2px 6px;border-radius:4px;font-size:12px;">FORMATTING-SPEC.md</code> file. Claude will produce a correctly named, fully styled HTML file.</p>
+            </div>
+          </div>
+
+          <!-- Step 2 -->
+          <div style="display:grid; grid-template-columns:48px 1fr; gap:20px; align-items:start; padding:24px 28px; border-bottom:1px solid var(--border);">
+            <div style="background:var(--blue);color:white;font-family:'Mackintosh',Georgia,serif;font-size:22px;width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;">2</div>
+            <div>
+              <h3 style="font-size:15px;font-weight:700;color:var(--text);margin-bottom:4px;">Add the file to your site folder</h3>
+              <p style="font-size:14px;color:var(--muted);line-height:1.6;">Put the new <code style="background:var(--bg);border:1px solid var(--border);padding:2px 6px;border-radius:4px;font-size:12px;">session-DD-month.html</code> file into your local <code style="background:var(--bg);border:1px solid var(--border);padding:2px 6px;border-radius:4px;font-size:12px;">Hillhead-Mixed</code> folder. Any images go into the <code style="background:var(--bg);border:1px solid var(--border);padding:2px 6px;border-radius:4px;font-size:12px;">media/</code> subfolder.</p>
+            </div>
+          </div>
+
+          <!-- Step 3 -->
+          <div style="display:grid; grid-template-columns:48px 1fr; gap:20px; align-items:start; padding:24px 28px; border-bottom:1px solid var(--border);">
+            <div style="background:var(--blue);color:white;font-family:'Mackintosh',Georgia,serif;font-size:22px;width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;">3</div>
+            <div>
+              <h3 style="font-size:15px;font-weight:700;color:var(--text);margin-bottom:4px;">Update training.html</h3>
+              <p style="font-size:14px;color:var(--muted);line-height:1.6;margin-bottom:12px;">Open <code style="background:var(--bg);border:1px solid var(--border);padding:2px 6px;border-radius:4px;font-size:12px;">training.html</code> in VS Code and add a new plan card. Also update the session count badge (e.g. "2 sessions" → "3 sessions").</p>
+              <div style="background:#1e2433;border-radius:8px;padding:16px 20px;overflow-x:auto;">
+                <pre style="margin:0;font-family:'Courier New',monospace;font-size:12px;line-height:1.7;color:#c9d1e0;white-space:pre;"><span style="color:#7ec8e3;">&lt;a</span> <span style="color:#f7c59f;">href=</span><span style="color:#98d982;">"session-19-april.html"</span> <span style="color:#f7c59f;">class=</span><span style="color:#98d982;">"plan-card"</span><span style="color:#7ec8e3;">&gt;</span>
+  <span style="color:#7ec8e3;">&lt;div</span> <span style="color:#f7c59f;">class=</span><span style="color:#98d982;">"plan-date"</span><span style="color:#7ec8e3;">&gt;</span>
+    <span style="color:#7ec8e3;">&lt;span</span> <span style="color:#f7c59f;">class=</span><span style="color:#98d982;">"day"</span><span style="color:#7ec8e3;">&gt;</span>19<span style="color:#7ec8e3;">&lt;/span&gt;</span>
+    <span style="color:#7ec8e3;">&lt;span</span> <span style="color:#f7c59f;">class=</span><span style="color:#98d982;">"month"</span><span style="color:#7ec8e3;">&gt;</span>Apr<span style="color:#7ec8e3;">&lt;/span&gt;</span>
+  <span style="color:#7ec8e3;">&lt;/div&gt;</span>
+  <span style="color:#7ec8e3;">&lt;div</span> <span style="color:#f7c59f;">class=</span><span style="color:#98d982;">"plan-info"</span><span style="color:#7ec8e3;">&gt;</span>
+    <span style="color:#7ec8e3;">&lt;h3&gt;</span>Your Session Title<span style="color:#7ec8e3;">&lt;/h3&gt;</span>
+    <span style="color:#7ec8e3;">&lt;div</span> <span style="color:#f7c59f;">class=</span><span style="color:#98d982;">"plan-meta"</span><span style="color:#7ec8e3;">&gt;</span>
+      <span style="color:#7ec8e3;">&lt;span</span> <span style="color:#f7c59f;">class=</span><span style="color:#98d982;">"plan-tag tag-blue"</span><span style="color:#7ec8e3;">&gt;</span>Topic<span style="color:#7ec8e3;">&lt;/span&gt;</span>
+      <span style="color:#7ec8e3;">&lt;span</span> <span style="color:#f7c59f;">class=</span><span style="color:#98d982;">"plan-tag tag-gray"</span><span style="color:#7ec8e3;">&gt;</span>2 hours<span style="color:#7ec8e3;">&lt;/span&gt;</span>
+    <span style="color:#7ec8e3;">&lt;/div&gt;</span>
+  <span style="color:#7ec8e3;">&lt;/div&gt;</span>
+  <span style="color:#7ec8e3;">&lt;div</span> <span style="color:#f7c59f;">class=</span><span style="color:#98d982;">"plan-arrow"</span><span style="color:#7ec8e3;">&gt;</span>→<span style="color:#7ec8e3;">&lt;/div&gt;</span>
+<span style="color:#7ec8e3;">&lt;/a&gt;</span></pre>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 4 -->
+          <div style="display:grid; grid-template-columns:48px 1fr; gap:20px; align-items:start; padding:24px 28px; border-bottom:1px solid var(--border);">
+            <div style="background:var(--blue);color:white;font-family:'Mackintosh',Georgia,serif;font-size:22px;width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;">4</div>
+            <div>
+              <h3 style="font-size:15px;font-weight:700;color:var(--text);margin-bottom:4px;">Push to GitHub</h3>
+              <p style="font-size:14px;color:var(--muted);line-height:1.6;">Open <strong>GitHub Desktop</strong>. You'll see the changed files listed automatically. Write a short commit message (e.g. <em>"Add April 19 session"</em>), click <strong>Commit to main</strong>, then click <strong>Push origin</strong>.</p>
+            </div>
+          </div>
+
+          <!-- Step 5 -->
+          <div style="display:grid; grid-template-columns:48px 1fr; gap:20px; align-items:start; padding:24px 28px;">
+            <div style="background:var(--green);color:white;font-family:'Mackintosh',Georgia,serif;font-size:22px;width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;">5</div>
+            <div>
+              <h3 style="font-size:15px;font-weight:700;color:var(--text);margin-bottom:4px;">Hard refresh the site</h3>
+              <p style="font-size:14px;color:var(--muted);line-height:1.6;">Wait 30–60 seconds, then visit <code style="background:var(--bg);border:1px solid var(--border);padding:2px 6px;border-radius:4px;font-size:12px;">joeldterry.github.io/Hillhead-Mixed</code> and press <strong>Ctrl + Shift + R</strong> (or Cmd + Shift + R on Mac) to bypass the browser cache and see the updated site.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="tip-box"><strong>Tip:</strong> Steps 1 and 4 are the only ones you really need to think about each time — Claude handles the formatting and GitHub Desktop handles the upload. Should take under 5 minutes once you're in the rhythm.</div>
     </div>
 
   </div><!-- /tut-container -->
