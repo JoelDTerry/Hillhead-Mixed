@@ -37,7 +37,7 @@ Every session page must follow this exact structure, top to bottom:
   12. Section divider <hr>
   13. Games block (if applicable)
   14. Drill Explanation section with embedded video (if applicable)
-  15. Collapsible section for any optional/extra reading (if applicable)
+  15. Joel's Mind block for any coach's notes or extra analysis (if applicable)
 
 ---
 
@@ -110,12 +110,14 @@ Every session page must follow this exact structure, top to bottom:
 - YouTube embed: use youtube.com/embed/VIDEOID format, add ?start=SECONDS if linking to a timestamp
 - Always set width="100%" — never fixed pixel widths
 
-### Collapsible Sections
-- Use for any content marked as optional, extra reading, or coach's notes
-- Title the summary clearly (e.g. "Inside Joel's Mind", "Coach's Notes")
-- Add a brief disclaimer in a <span class="disclaimer"> if appropriate
+### Joel's Mind Block
+- Use for any coach's notes, analysis, or extra reading from the session plan
+- Use the same .aims-block container as Session Aims (blue left border, same padding and card style)
+- Heading: <div class="block-label">Inside Joel's Mind</div> (or "Coach's Notes" if not Joel's session)
 - Body content uses <div class="mind-content"> with <div class="mind-section"> per topic
-- Each mind-section has an h3 heading and p paragraphs
+- Each mind-section has an h3 subheading followed by one or more <p> paragraphs
+- Do NOT use a collapsible <details> element — the block is always fully visible
+- Place after the final <hr class="section-divider"> at the bottom of the page
 
 ### Drill Links (Ultiplays / external)
 - If the source doc contains a URL to an external drill, render it as:
@@ -177,6 +179,6 @@ After creating the new session HTML file, also update training.html:
 [ ] All images extracted and referenced as media/filename
 [ ] All video embeds use width="100%"
 [ ] Games block present if source doc includes games
-[ ] Optional/extra content in collapsible section
+[ ] Joel's Mind block present if source doc includes coach's notes or analysis
 [ ] training.html plan card added with correct tags and count updated
 [ ] No new CSS classes invented
