@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>19 April — Training Session</title>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+
+    /* --- Page banner --- */
+    .page-banner { padding: 48px 32px 40px; border-bottom: 1px solid var(--border); background: var(--white); }
+    .page-banner .breadcrumb { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+    .page-banner .breadcrumb a { color: var(--muted); text-decoration: none; }
+    .page-banner .breadcrumb a:hover { color: var(--text); }
+    .page-banner h1 { font-size: clamp(36px, 6vw, 64px); line-height: 1.1; letter-spacing: 0.02em; color: var(--text); }
+    .page-banner p { margin-top: 10px; font-size: 15px; color: var(--muted); }
+    .banner-blue { border-left: 4px solid var(--blue); padding-left: 28px; }
+
+    /* --- Session layout --- */
+    .session-layout { padding: 48px 0 100px; display: flex; flex-direction: column; gap: 0; }
+
+    /* --- Divider --- */
+    .section-divider { border: none; border-top: 1px solid var(--border); margin: 28px 0; }
+
+    /* --- Time row --- */
+    .time-row { display: grid; grid-template-columns: 80px 1fr; gap: 24px; align-items: start; padding: 16px 0; border-bottom: 1px solid var(--border); }
+    .time-stamp { font-family: 'Mackintosh', Georgia, serif; font-size: 20px; color: var(--blue); padding-top: 2px; }
+    .time-body h3 { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 2px; }
+    .time-body p { font-size: 14px; color: var(--muted); }
+
+    /* --- Zone cards --- */
+    .zone-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px; }
+    .zone-card { background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 24px; }
+    .zone-card.offence { border-top: 3px solid var(--blue); }
+    .zone-card.defence { border-top: 3px solid var(--green); }
+    .zone-card h3 { font-size: 18px; letter-spacing: 0.03em; margin-bottom: 14px; }
+    .zone-card.offence h3 { color: var(--blue); }
+    .zone-card.defence h3 { color: var(--green); }
+    .bullet-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .bullet-list li { font-size: 13.5px; color: var(--text); padding-left: 16px; position: relative; line-height: 1.5; }
+    .bullet-list li::before { content: '–'; position: absolute; left: 0; color: var(--muted); }
+    .sub-list { list-style: none; margin-top: 6px; display: flex; flex-direction: column; gap: 6px; padding-left: 12px; }
+    .sub-list li { font-size: 13px; }
+
+    /* --- Games block --- */
+    .games-block { background: var(--white); border: 1px solid var(--border); border-left: 4px solid var(--green); border-radius: 0 12px 12px 0; padding: 28px 32px; }
+    .block-label { font-size: 11px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; margin-bottom: 14px; }
+    .block-label.green { color: var(--green); }
+    .block-label.blue { color: var(--blue); }
+    .game-rules { display: flex; flex-direction: column; gap: 12px; }
+    .game-rule { display: flex; align-items: flex-start; gap: 12px; font-size: 14px; color: var(--text); }
+    .rule-tag { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 3px 9px; border-radius: 4px; white-space: nowrap; margin-top: 2px; }
+    .rule-tag.blue { background: var(--blue-light); color: var(--blue); }
+    .rule-tag.green { background: var(--green-light); color: var(--green); }
+    .win-note { margin-top: 18px; padding: 14px 20px; background: var(--green-light); border-radius: 8px; font-size: 13px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--green); text-align: center; }
+
+    /* --- Break badge --- */
+    .break-badge { display: flex; justify-content: center; margin: 20px 0; }
+    .break-badge span { background: #f9fafb; border: 1px solid var(--border); border-radius: 99px; padding: 8px 24px; font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+
+    /* --- Iframe wrap --- */
+    .iframe-wrap { background: var(--white); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; padding: 4px; margin-top: 16px; }
+    .iframe-wrap iframe { display: block; width: 100%; border-radius: 9px; }
+
+    /* --- Aims block --- */
+    .aims-block { background: var(--white); border: 1px solid var(--border); border-left: 4px solid var(--blue); border-radius: 0 12px 12px 0; padding: 24px 28px; }
+    .aims-list { list-style: none; counter-reset: aims; display: flex; flex-direction: column; gap: 10px; }
+    .aims-list li { counter-increment: aims; display: flex; align-items: flex-start; gap: 14px; font-size: 15px; color: var(--text); }
+    .aims-list li::before { content: counter(aims, decimal-leading-zero); font-family: 'Mackintosh', Georgia, serif; font-size: 20px; color: var(--blue); min-width: 28px; line-height: 1.4; }
+
+    /* --- Mind block --- */
+    .mind-content { display: flex; flex-direction: column; gap: 20px; margin-top: 16px; }
+    .mind-section h3 { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+    .mind-section p { font-size: 14px; color: var(--muted); line-height: 1.8; }
+
+    /* --- Drill link --- */
+    .drill-link { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 700; color: var(--blue); text-decoration: none; letter-spacing: 0.04em; margin-top: 8px; }
+    .drill-link:hover { text-decoration: underline; }
+
+    /* --- Section heading --- */
+    .section-heading { font-size: 22px; letter-spacing: 0.03em; color: var(--text); margin-bottom: 6px; margin-top: 24px; }
+    .section-sub { font-size: 14px; color: var(--muted); margin-bottom: 20px; }
+
+    @media (max-width: 640px) {
+      .zone-grid { grid-template-columns: 1fr; }
+    }
+
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="nav-logo" href="index.html">Team Hub</a>
+    <ul class="nav-links">
+      <li><a href="training.html" class="active-blue">Training</a></li>
+      <li><a href="footage.html">Footage</a></li>
+      <li><a href="scouting.html">Scouting</a></li>
+    </ul>
+  </nav>
+
+  <!-- Page Banner -->
+  <div class="page-banner banner-blue">
+    <div class="container">
+      <div class="breadcrumb">
+        <a href="index.html">Home</a> /
+        <a href="training.html">Training Plans</a> /
+        19 April
+      </div>
+      <h1>19 April</h1>
+      <p>Endzone &amp; Shaggy Dog — 2.5 hours, 2:30 PM</p>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="session-layout">
+
+      <!-- SESSION AIMS -->
+      <div class="aims-block">
+        <div class="block-label blue">Session Aims</div>
+        <ul class="aims-list">
+          <li>Practise our Endzone offence</li>
+          <li>Practise our Shaggy Dog defence</li>
+          <li>Practise our Horizontal offence</li>
+        </ul>
+      </div>
+
+      <hr class="section-divider"/>
+
+      <!-- TIMELINE: WARM UP -->
+      <div class="time-row">
+        <div class="time-stamp">2:30</div>
+        <div class="time-body">
+          <h3>Session Starts</h3>
+          <p>Chat and warm up</p>
+        </div>
+      </div>
+
+      <div class="time-row" style="border-bottom: none;">
+        <div class="time-stamp">2:45</div>
+        <div class="time-body">
+          <h3>Throwing Drill 1 — Breakmark to Deep Shot Continuation</h3>
+          <a href="https://www.ultiplays.com/embed/bnlNoj8NNdSmr45QNvKB" target="_blank" class="drill-link">▶ View Drill on Ultiplays</a>
+          <div class="iframe-wrap">
+            <iframe src="https://www.ultiplays.com/embed/bnlNoj8NNdSmr45QNvKB" height="480" frameborder="0" allowfullscreen width="100%"></iframe>
+          </div>
+        </div>
+      </div>
+
+      <hr class="section-divider"/>
+
+      <!-- ENDZONE SECTION -->
+      <div class="time-row" style="border-bottom: none;">
+        <div class="time-stamp">3:00</div>
+        <div class="time-body">
+          <h3>Endzone</h3>
+          <p>Horizontal endzone offence — can adjust into vertical if needed (isolate front of stack, cuts from the back)</p>
+        </div>
+      </div>
+
+      <div class="zone-grid">
+        <div class="zone-card offence">
+          <h3>Offence Aims</h3>
+          <ul class="bullet-list">
+            <li>Isolate cutters</li>
+            <li>Swing the disc</li>
+            <li>Can adjust into vertical endzone if needed</li>
+          </ul>
+        </div>
+        <div class="zone-card defence">
+          <h3>Defence Aims</h3>
+          <ul class="bullet-list">
+            <li>Comms and heads-up D</li>
+            <li>Look for switches and brackets</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="time-row" style="margin-top: 20px;">
+        <div class="time-stamp">3:00</div>
+        <div class="time-body">
+          <h3>5 Pulls Each Line — Static Starts</h3>
+        </div>
+      </div>
+
+      <div class="time-row" style="border-bottom: none;">
+        <div class="time-stamp">3:20</div>
+        <div class="time-body">
+          <h3>5 Pulls Each Line — Moving Starts</h3>
+        </div>
+      </div>
+
+      <hr class="section-divider"/>
+
+      <!-- BREAK -->
+      <div class="break-badge">
+        <span>⏸ &nbsp; 3:40 – 3:45 &nbsp; Break</span>
+      </div>
+
+      <hr class="section-divider"/>
+
+      <!-- PLINCKO CUTTING DRILL -->
+      <div class="time-row" style="border-bottom: none;">
+        <div class="time-stamp">3:50</div>
+        <div class="time-body">
+          <h3>Plincko Cutting Drill</h3>
+          <p>Lots of reps at recognising your position and what you should be doing.</p>
+          <a href="https://www.ultiplays.com/embed/1JEmpQPV70hjxZenj4vQ" target="_blank" class="drill-link">▶ View Drill on Ultiplays</a>
+          <div class="iframe-wrap">
+            <iframe src="https://www.ultiplays.com/embed/1JEmpQPV70hjxZenj4vQ" height="480" frameborder="0" allowfullscreen width="100%"></iframe>
+          </div>
+        </div>
+      </div>
+
+      <hr class="section-divider"/>
+
+      <!-- SHAGGY DOG -->
+      <div class="time-row" style="border-bottom: none;">
+        <div class="time-stamp">4:00</div>
+        <div class="time-body">
+
+
+
+          <h3>Shaggy Dog D &amp; Offensive Cutting</h3>
+
+      <div class="zone-grid" style="margin-top: 24px;">
+        <div class="zone-card offence">
+          <h3>Offence Aims</h3>
+          <ul class="bullet-list">
+            <li>Cut to score</li>
+            <li>Cut to maximise yards gained</li>
+            <li>Cut to get breakside continuation</li>
+            <li>Big shapes</li>
+            <li>Think about timing</li>
+          </ul>
+        </div>
+        <div class="zone-card defence">
+          <h3>Defence Aims</h3>
+          <ul class="bullet-list">
+            <li>Tight, intense D</li>
+            <li>Over-commitment on the unders</li>
+            <li>Active and annoying on the force</li>
+            <li>Loud sidelines — make it a group of dogs</li>
+            <li><strong>See the disc</strong></li>
+          </ul>
+        </div>
+      </div>
+          <a href="https://www.ultiplays.com/embed/yry3Qw1x1XSEX2kD1vKQ" target="_blank" class="drill-link">▶ View Drill on Ultiplays</a>
+          <div class="iframe-wrap">
+            <iframe src="https://www.ultiplays.com/embed/yry3Qw1x1XSEX2kD1vKQ" height="480" frameborder="0" allowfullscreen width="100%"></iframe>
+          </div>
+        </div>
+      </div>
+
+
+
+      <hr class="section-divider"/>
+
+      <!-- FULL PITCH 7s -->
+      <div class="time-row" style="border-bottom: none;">
+        <div class="time-stamp">4:20</div>
+        <div class="time-body">
+          <h3>Full Pitch 7s — Best of 5</h3>
+          <p><em>Make the most of your opportunity!</em></p>
+          <ul class="bullet-list" style="margin-top: 12px;">
+            <li>Each line gets 5 offensive possessions</li>
+            <li>1 point for scoring — how many points can you get?</li>
+            <li>O line starts from a pull</li>
+            <li>D line starts from a turnover</li>
+          </ul>
+        </div>
+      </div>
+
+      <hr class="section-divider"/>
+
+      <!-- GAMES -->
+      <div class="time-row" style="border-bottom: none;">
+        <div class="time-stamp">4:40</div>
+        <div class="time-body">
+          <h3>Games</h3>
+        </div>
+      </div>
+
+      <div class="games-block" style="margin-top: 16px;">
+        <div class="block-label green">Game Format</div>
+        <div class="game-rules">
+          <div class="game-rule">
+            <span class="rule-tag green">Format</span>
+            Game to 3, then game to 2, then game to 1
+          </div>
+          <div class="game-rule">
+            <span class="rule-tag blue">Rule</span>
+            Double score is activated
+          </div>
+        </div>
+        <div class="win-note">🏆 &nbsp; Win the final game</div>
+      </div>
+
+    </div><!-- /session-layout -->
+  </div><!-- /container -->
+
+</body>
+</html>
