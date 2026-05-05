@@ -109,7 +109,7 @@ nav {
 }
 
 .page-banner .breadcrumb {
-  font-size: 12px;
+  font-size: 14px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--muted);
@@ -155,7 +155,7 @@ nav {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 400;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -235,6 +235,6 @@ nav {
   background: var(--border);
   padding: 2px 7px;
   border-radius: 4px;
-  font-size: 12px;
+  font-size: 14px;
   font-family: monospace;
 }

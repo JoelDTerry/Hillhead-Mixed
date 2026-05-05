@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>10 May — Session Plan — Team Hub</title>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+
+    /* ── Page Banner ── */
+    .page-banner {
+      padding: 48px 0 40px;
+    }
+    .page-banner.banner-blue {
+      background: var(--blue-light);
+      border-bottom: 3px solid var(--blue);
+    }
+    .page-banner h1 {
+      font-family: 'Mackintosh', Georgia, serif;
+      font-size: 48px;
+      color: var(--blue);
+      margin: 8px 0 6px;
+      letter-spacing: 0.01em;
+    }
+    .page-banner .subtitle {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--blue);
+      opacity: 0.75;
+    }
+    .breadcrumb {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 4px;
+      letter-spacing: 0.06em;
+    }
+    .breadcrumb a {
+      color: var(--blue);
+      text-decoration: none;
+    }
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    /* ── Layout ── */
+    .session-layout {
+      padding: 48px 0 80px;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    /* ── Aims block ── */
+    .aims-block {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--blue);
+      border-radius: 12px;
+      padding: 28px 32px;
+      margin-bottom: 32px;
+    }
+    .block-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .block-label.blue { color: var(--blue); }
+    .block-label.green { color: var(--green); }
+
+    .aims-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      counter-reset: aims-counter;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .aims-list li {
+      counter-increment: aims-counter;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      font-size: 15px;
+      color: var(--text);
+      line-height: 1.5;
+    }
+    .aims-list li::before {
+      content: counter(aims-counter);
+      background: var(--blue);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* ── Session Rule block ── */
+    .rule-block {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--green);
+      border-radius: 12px;
+      padding: 20px 28px;
+      margin-bottom: 32px;
+    }
+    .rule-block .block-label { margin-bottom: 10px; }
+    .rule-block p {
+      font-size: 14px;
+      color: var(--text);
+      margin: 0;
+      line-height: 1.6;
+    }
+
+    /* ── Section divider ── */
+    .section-divider {
+      border: none;
+      border-top: 2px solid var(--border);
+      margin: 32px 0;
+    }
+
+    /* ── Timeline rows ── */
+    .time-row {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 24px;
+      align-items: start;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .time-stamp {
+      font-family: 'Mackintosh', Georgia, serif;
+      font-size: 22px;
+      color: var(--blue);
+      line-height: 1.1;
+      padding-top: 2px;
+    }
+    .time-row h3 {
+      font-size: 17px;
+      letter-spacing: 0.02em;
+      color: var(--text);
+      margin: 0 0 4px;
+    }
+    .time-row p {
+      font-size: 14px;
+      color: var(--muted);
+      margin: 0;
+      line-height: 1.6;
+    }
+
+    /* ── Bullet lists ── */
+    .bullet-list {
+      list-style: none;
+      padding: 0;
+      margin: 8px 0 0;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .bullet-list li {
+      font-size: 14px;
+      color: var(--text);
+      line-height: 1.5;
+      padding-left: 18px;
+      position: relative;
+    }
+    .bullet-list li::before {
+      content: "–";
+      position: absolute;
+      left: 0;
+      color: var(--blue);
+      font-weight: 700;
+    }
+    .sub-list {
+      list-style: none;
+      padding: 0;
+      margin: 4px 0 0 16px;
+    }
+    .sub-list li {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.5;
+      padding-left: 16px;
+      position: relative;
+    }
+    .sub-list li::before {
+      content: "·";
+      position: absolute;
+      left: 0;
+      color: var(--blue);
+      font-weight: 700;
+    }
+
+    /* ── Content cards ── */
+    .content-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px 28px;
+      margin-bottom: 16px;
+    }
+    .content-card.blue-top { border-top: 3px solid var(--blue); }
+    .content-card.green-top { border-top: 3px solid var(--green); }
+    .content-card h3 {
+      font-size: 16px;
+      letter-spacing: 0.04em;
+      margin: 0 0 12px;
+    }
+    .content-card.blue-top h3 { color: var(--blue); }
+    .content-card.green-top h3 { color: var(--green); }
+
+    /* ── Zone grid ── */
+    .zone-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .zone-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px 24px 20px;
+    }
+    .zone-card.offence { border-top: 3px solid var(--blue); }
+    .zone-card.defence { border-top: 3px solid var(--green); }
+    .zone-card h3 {
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin: 0 0 14px;
+    }
+    .zone-card.offence h3 { color: var(--blue); }
+    .zone-card.defence h3 { color: var(--green); }
+
+    /* ── Break badge ── */
+    .break-badge {
+      display: inline-flex;
+      align-items: center;
+      background: #f3f4f6;
+      border: 1px solid var(--border);
+      border-radius: 99px;
+      padding: 10px 24px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin: 20px 0;
+    }
+
+    /* ── Games block ── */
+    .games-block {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--green);
+      border-radius: 12px;
+      padding: 28px 32px;
+      margin-bottom: 24px;
+    }
+    .game-rule {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .game-rule:last-of-type { border-bottom: none; }
+    .rule-tag {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 99px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .rule-tag.blue { background: var(--blue-light); color: var(--blue); }
+    .rule-tag.green { background: var(--green-light); color: var(--green); }
+    .game-rule p {
+      font-size: 14px;
+      color: var(--text);
+      line-height: 1.5;
+      margin: 0;
+    }
+    .win-note {
+      margin-top: 16px;
+      font-size: 14px;
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    /* ── Drill link ── */
+    .drill-link {
+      display: inline-block;
+      margin-top: 12px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--blue);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+    }
+    .drill-link:hover { text-decoration: underline; }
+
+    /* ── Iframe ── */
+    .iframe-wrap {
+      margin-top: 16px;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #000;
+    }
+    .iframe-wrap iframe {
+      display: block;
+    }
+
+    /* ── Red Light Green Light table ── */
+    .rlgl-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 16px;
+    }
+    .rlgl-card {
+      border-radius: 12px;
+      padding: 20px 22px;
+      border: 1px solid var(--border);
+    }
+    .rlgl-card.red {
+      background: #fff5f5;
+      border-top: 3px solid #e03b3b;
+    }
+    .rlgl-card.green-card {
+      background: var(--green-light);
+      border-top: 3px solid var(--green);
+    }
+    .rlgl-card h4 {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin: 0 0 12px;
+    }
+    .rlgl-card.red h4 { color: #e03b3b; }
+    .rlgl-card.green-card h4 { color: var(--green); }
+
+    /* Fallback vars if style.css not loaded */
+    :root {
+      --blue: #1e6fbf;
+      --blue-light: #e8f1fb;
+      --blue-glow: rgba(30,111,191,0.12);
+      --green: #1a9e5c;
+      --green-light: #e6f7ee;
+      --text: #1a1f2e;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+      --white: #ffffff;
+      --bg: #f9fafb;
+    }
+
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="nav-logo" href="index.html">Team Hub</a>
+    <ul class="nav-links">
+      <li><a href="training.html" class="active-blue">Training</a></li>
+      <li><a href="footage.html">Footage</a></li>
+      <li><a href="scouting.html">Scouting</a></li>
+    </ul>
+  </nav>
+
+  <div class="page-banner banner-blue">
+    <div class="container">
+      <div class="breadcrumb"><a href="index.html">Home</a> / <a href="training.html">Training Plans</a> / 10 May</div>
+      <h1>10 May</h1>
+      <p class="subtitle">Communication &amp; Confidence — 3 hours, 2:00 PM</p>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="session-layout">
+
+      <!-- Session Aims -->
+      <div class="aims-block">
+        <div class="block-label blue">Session Aims</div>
+        <ul class="aims-list">
+          <li>Practise the basics</li>
+          <li>Work on our communication skills</li>
+          <li>Take on options and grow confidence</li>
+        </ul>
+      </div>
+
+      <!-- Session Rule -->
+      <div class="rule-block">
+        <div class="block-label green">Session Rule</div>
+        <p>In all games, FMPs must pick up the disc after a turnover. This can be for a quick start or slow start.</p>
+      </div>
+
+      <hr class="section-divider"/>
+
+      <!-- Timeline: Warm Up -->
+      <div class="time-row">
+        <div class="time-stamp">2:00</div>
+        <div>
+          <h3>Session Start — Warm Up</h3>
+        </div>
+      </div>
+
+      <div class="time-row" style="border-bottom:none;">
+        <div class="time-stamp">2:15</div>
+        <div>
+          <h3>4 Lines / Buzz Bullets</h3>
+          <ul class="bullet-list">
+            <li>Uplines — outside and flat forces</li>
+            <li>Out and under — outside and away force</li>
+            <li>Out — outside force; thrower starts with a small pop pass</li>
+          </ul>
+          <p style="margin-top:10px; font-size:13px; color:var(--muted);">5 minutes on each force (25 minutes total)</p>
+        </div>
+      </div>
+
+      <hr class="section-divider"/>
+
+      <!-- Single Gender Drills -->
+      <div class="time-row" style="border-bottom:none;">
+        <div class="time-stamp">2:40</div>
+        <div>
+          <h3>Single Gender Drills</h3>
+          <p>Don't faff — get straight into these drills. 10 minutes on each drill.</p>
+        </div>
+      </div>
+
+      <!-- FAT Unders -->
+      <div class="content-card blue-top">
+        <h3>FAT Unders</h3>
+        <p style="font-size:13px; color:var(--muted); margin:0 0 10px;">5 minutes backhand, 5 minutes forehand</p>
+        <ul class="bullet-list">
+          <li>Throw hard and low</li>
+          <li>Attack the disc when catching</li>
+          <li>Cut hard</li>
+        </ul>
+        <div class="iframe-wrap">
+          <iframe width="100%" height="400" src="https://www.ultiplays.com/embed/vDQ6X2YZdMI8ryn1OP0K" frameborder="0" allowfullscreen></iframe>
+        </div>
+      </div>
+
+      <!-- Break Force -->
+      <div class="content-card blue-top">
+        <h3>Break Force</h3>
+        <ul class="bullet-list">
+          <li>Throw early</li>
+          <li>Throw with touch and control</li>
+          <li>Use body language to sell your fakes</li>
+        </ul>
+        <div class="iframe-wrap">
+          <iframe width="100%" height="400" src="https://www.ultiplays.com/embed/E3nKB2eKR4uvnkBVOMWV" frameborder="0" allowfullscreen></iframe>
+        </div>
+      </div>
+
+      <hr class="section-divider"/>
+
+      <!-- Break -->
+      <div class="time-row" style="border-bottom:none;">
+        <div class="time-stamp">3:05</div>
+        <div>
+          <div class="break-badge">⏸ &nbsp; 3:05 – 3:10 &nbsp; Break</div>
+        </div>
+      </div>
+
+      <hr class="section-divider"/>
+
+      <!-- Game 1 -->
+      <div class="time-row" style="border-bottom:none;">
+        <div class="time-stamp">3:10</div>
+        <div>
+          <h3>Game 1 — No Talking</h3>
+        </div>
+      </div>
+
+      <div class="games-block">
+        <div class="block-label green">Game Format</div>
+
+        <div class="game-rule">
+          <span class="rule-tag green">Format</span>
+          <p>Game duration is 20 minutes. Max 120 seconds between points. Agree on ABBA or fixed ratio between game starts.</p>
+        </div>
+        <div class="game-rule">
+          <span class="rule-tag blue">Rule</span>
+          <p>The only talking allowed is the stall count and when a foul is called. 30 seconds between points (starts as soon as a team scores).</p>
+        </div>
+        <div class="game-rule">
+          <span class="rule-tag blue">Rule</span>
+          <p><strong>All other communication must be nonverbal.</strong></p>
+        </div>
+      </div>
+
+      <!-- Game 2 -->
+      <div class="time-row" style="border-bottom:none;">
+        <div class="time-stamp">3:30</div>
+        <div>
+          <h3>Game 2 — One Speaker Per Team</h3>
+        </div>
+      </div>
+
+      <div class="games-block">
+        <div class="block-label green">Game Format</div>
+
+        <div class="game-rule">
+          <span class="rule-tag green">Format</span>
+          <p>Game duration is 20 minutes. Max 120 seconds between points. Agree on ABBA or fixed ratio between game starts.</p>
+        </div>
+        <div class="game-rule">
+          <span class="rule-tag blue">Rule</span>
+          <p>One person is allowed to talk per team, per point. Each point, captains pick a new speaker — can't be the same person twice, and must alternate between genders.</p>
+        </div>
+        <div class="game-rule">
+          <span class="rule-tag blue">Rule</span>
+          <p>Outside of the speaker, only the stall count and foul calls are permitted. <strong>Everything else must be nonverbal.</strong></p>
+        </div>
+      </div>
+
+      <!-- Break -->
+      <div class="time-row" style="border-bottom:none;">
+        <div class="time-stamp">3:50</div>
+        <div>
+          <div class="break-badge">⏸ &nbsp; 3:50 – 4:00 &nbsp; Break</div>
+        </div>
+      </div>
+
+      <hr class="section-divider"/>
+
+      <!-- Red Light Green Light -->
+      <div class="time-row" style="border-bottom:none;">
+        <div class="time-stamp">4:00</div>
+        <div>
+          <h3>Red Light, Green Light</h3>
+          <p>20 minutes per gender. 4:00 – 4:40.</p>
+        </div>
+      </div>
+
+      <div class="games-block">
+        <div class="block-label green">Game Format — Red Light / Green Light</div>
+
+        <div class="game-rule">
+          <span class="rule-tag green">Format</span>
+          <p>20 minutes per gender group.</p>
+        </div>
+        <div class="game-rule">
+          <span class="rule-tag blue">Rule</span>
+          <p><strong>Jail</strong> — positioned on the sideline at halfway. Play continues while a player travels to and from jail. Don't walk, or your team suffers longer.</p>
+        </div>
+
+        <div class="rlgl-grid">
+          <div class="rlgl-card red">
+            <h4>🔴 Red Light</h4>
+            <ul class="bullet-list">
+              <li>Take on conservative options — play safe</li>
+              <li>Reset early</li>
+              <li>Don't rush decisions or execution</li>
+              <li>Don't hog the disc</li>
+              <li>When playing D — play tight, no poaching, no taking risks</li>
+            </ul>
+            <p style="font-size:13px; margin-top:12px; color:#e03b3b; font-weight:600;">If there is a turnover on a progressive option (reset and swing passes don't count), the thrower must go to jail for 10 seconds while play continues. The timekeeper can also send you to jail if you are being too risky (e.g. throwing a contested huck, poaching off on D).</p>
+          </div>
+          <div class="rlgl-card green-card">
+            <h4>🟢 Green Light</h4>
+            <ul class="bullet-list">
+              <li>Take on progressive options</li>
+              <li>Try to throw break throws or hucks</li>
+              <li>Don't rush to reset the disc</li>
+              <li>Set yourself up in the active lanes</li>
+              <li>When playing D — take risks, look to poach into the lane</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <hr class="section-divider"/>
+
+      <!-- Final Game -->
+      <div class="time-row">
+        <div class="time-stamp">4:40</div>
+        <div>
+          <h3>Game to 3 — Standard Ultimate</h3>
+          <p>Full-field standard ultimate to close out the session.</p>
+        </div>
+      </div>
+
+    </div><!-- /.session-layout -->
+  </div><!-- /.container -->
+
+</body>
+</html>
