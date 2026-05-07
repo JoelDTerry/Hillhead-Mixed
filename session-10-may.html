@@ -7,365 +7,95 @@
   <link rel="stylesheet" href="style.css"/>
   <style>
 
-    /* ── Page Banner ── */
-    .page-banner {
-      padding: 48px 0 40px;
-    }
-    .page-banner.banner-blue {
-      background: var(--blue-light);
-      border-bottom: 3px solid var(--blue);
-    }
-    .page-banner h1 {
-      font-family: 'Mackintosh', Georgia, serif;
-      font-size: 48px;
-      color: var(--blue);
-      margin: 8px 0 6px;
-      letter-spacing: 0.01em;
-    }
-    .page-banner .subtitle {
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--blue);
-      opacity: 0.75;
-    }
-    .breadcrumb {
-      font-size: 12px;
-      color: var(--muted);
-      margin-bottom: 4px;
-      letter-spacing: 0.06em;
-    }
-    .breadcrumb a {
-      color: var(--blue);
-      text-decoration: none;
-    }
-    .breadcrumb a:hover { text-decoration: underline; }
+    body { background: #f0f2f5; }
 
-    /* ── Layout ── */
-    .session-layout {
-      padding: 48px 0 80px;
-      display: flex;
-      flex-direction: column;
-      gap: 0;
-    }
+    /* --- Page banner --- */
+    .page-banner { padding: 48px 32px 40px; border-bottom: 1px solid var(--border); background: var(--white); }
+    .page-banner .breadcrumb { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+    .page-banner .breadcrumb a { color: var(--muted); text-decoration: none; }
+    .page-banner h1 { font-size: clamp(36px, 6vw, 64px); line-height: 1.1; letter-spacing: 0.02em; color: var(--text); }
+    .page-banner p { margin-top: 10px; font-size: 15px; color: var(--muted); }
+    .banner-blue { border-left: 4px solid var(--blue); padding-left: 28px; }
 
-    /* ── Aims block ── */
-    .aims-block {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-left: 4px solid var(--blue);
-      border-radius: 12px;
-      padding: 28px 32px;
-      margin-bottom: 32px;
-    }
-    .block-label {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      margin-bottom: 16px;
-    }
-    .block-label.blue { color: var(--blue); }
-    .block-label.green { color: var(--green); }
+    /* --- Layout --- */
+    .container { max-width: 860px; margin: 0 auto; padding: 0 32px; }
+    .session-layout { padding: 40px 0 80px; display: flex; flex-direction: column; gap: 28px; }
 
-    .aims-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      counter-reset: aims-counter;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-    .aims-list li {
-      counter-increment: aims-counter;
-      display: flex;
-      align-items: flex-start;
-      gap: 14px;
-      font-size: 15px;
-      color: var(--text);
-      line-height: 1.5;
-    }
-    .aims-list li::before {
-      content: counter(aims-counter);
-      background: var(--blue);
-      color: #fff;
-      font-size: 11px;
-      font-weight: 700;
-      width: 22px;
-      height: 22px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      margin-top: 1px;
-    }
+    /* --- Divider --- */
+    .section-divider { border: none; border-top: 1px solid var(--border); margin: 4px 0; }
 
-    /* ── Session Rule block ── */
-    .rule-block {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-left: 4px solid var(--green);
-      border-radius: 12px;
-      padding: 20px 28px;
-      margin-bottom: 32px;
-    }
-    .rule-block .block-label { margin-bottom: 10px; }
-    .rule-block p {
-      font-size: 14px;
-      color: var(--text);
-      margin: 0;
-      line-height: 1.6;
-    }
+    /* --- Time row --- */
+    .time-row { display: grid; grid-template-columns: 80px 1fr; gap: 24px; align-items: start; padding: 16px 0; border-bottom: 1px solid var(--border); }
+    .time-stamp { font-family: 'Mackintosh', Georgia, serif; font-size: 20px; color: var(--blue); padding-top: 2px; }
+    .time-body h3 { font-size: 18px; font-weight: 700; color: var(--text); margin-bottom: 2px; }
+    .time-body p { font-size: 16px; color: var(--muted); }
 
-    /* ── Section divider ── */
-    .section-divider {
-      border: none;
-      border-top: 2px solid var(--border);
-      margin: 32px 0;
-    }
-
-    /* ── Timeline rows ── */
-    .time-row {
-      display: grid;
-      grid-template-columns: 80px 1fr;
-      gap: 24px;
-      align-items: start;
-      padding: 20px 0;
-      border-bottom: 1px solid var(--border);
-    }
-    .time-stamp {
-      font-family: 'Mackintosh', Georgia, serif;
-      font-size: 22px;
-      color: var(--blue);
-      line-height: 1.1;
-      padding-top: 2px;
-    }
-    .time-row h3 {
-      font-size: 17px;
-      letter-spacing: 0.02em;
-      color: var(--text);
-      margin: 0 0 4px;
-    }
-    .time-row p {
-      font-size: 14px;
-      color: var(--muted);
-      margin: 0;
-      line-height: 1.6;
-    }
-
-    /* ── Bullet lists ── */
-    .bullet-list {
-      list-style: none;
-      padding: 0;
-      margin: 8px 0 0;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-    .bullet-list li {
-      font-size: 14px;
-      color: var(--text);
-      line-height: 1.5;
-      padding-left: 18px;
-      position: relative;
-    }
-    .bullet-list li::before {
-      content: "–";
-      position: absolute;
-      left: 0;
-      color: var(--blue);
-      font-weight: 700;
-    }
-    .sub-list {
-      list-style: none;
-      padding: 0;
-      margin: 4px 0 0 16px;
-    }
-    .sub-list li {
-      font-size: 13px;
-      color: var(--muted);
-      line-height: 1.5;
-      padding-left: 16px;
-      position: relative;
-    }
-    .sub-list li::before {
-      content: "·";
-      position: absolute;
-      left: 0;
-      color: var(--blue);
-      font-weight: 700;
-    }
-
-    /* ── Content cards ── */
-    .content-card {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 24px 28px;
-      margin-bottom: 16px;
-    }
-    .content-card.blue-top { border-top: 3px solid var(--blue); }
-    .content-card.green-top { border-top: 3px solid var(--green); }
-    .content-card h3 {
-      font-size: 16px;
-      letter-spacing: 0.04em;
-      margin: 0 0 12px;
-    }
-    .content-card.blue-top h3 { color: var(--blue); }
-    .content-card.green-top h3 { color: var(--green); }
-
-    /* ── Zone grid ── */
-    .zone-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      margin-bottom: 24px;
-    }
-    .zone-card {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 24px 24px 20px;
-    }
+    /* --- Zone cards --- */
+    .zone-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    @media (max-width: 640px) { .zone-grid { grid-template-columns: 1fr; } }
+    .zone-card { background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 24px; }
     .zone-card.offence { border-top: 3px solid var(--blue); }
     .zone-card.defence { border-top: 3px solid var(--green); }
-    .zone-card h3 {
-      font-size: 14px;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      margin: 0 0 14px;
-    }
+    .zone-card h3 { font-size: 18px; letter-spacing: 0.03em; margin-bottom: 14px; }
     .zone-card.offence h3 { color: var(--blue); }
     .zone-card.defence h3 { color: var(--green); }
+    .bullet-list { list-style: none; display: flex; flex-direction: column; gap: 8px; padding: 0; }
+    .bullet-list li { font-size: 13.5px; color: var(--text); padding-left: 16px; position: relative; line-height: 1.5; }
+    .bullet-list li::before { content: '–'; position: absolute; left: 0; color: var(--muted); }
+    .sub-list { list-style: none; margin-top: 6px; display: flex; flex-direction: column; gap: 5px; padding: 0; }
+    .sub-list li { font-size: 13px; color: var(--muted); padding-left: 16px; position: relative; }
+    .sub-list li::before { content: '·'; position: absolute; left: 0; color: var(--muted); }
 
-    /* ── Break badge ── */
-    .break-badge {
-      display: inline-flex;
-      align-items: center;
-      background: #f3f4f6;
-      border: 1px solid var(--border);
-      border-radius: 99px;
-      padding: 10px 24px;
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin: 20px 0;
-    }
-
-    /* ── Games block ── */
-    .games-block {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-left: 4px solid var(--green);
-      border-radius: 12px;
-      padding: 28px 32px;
-      margin-bottom: 24px;
-    }
-    .game-rule {
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      padding: 10px 0;
-      border-bottom: 1px solid var(--border);
-    }
-    .game-rule:last-of-type { border-bottom: none; }
-    .rule-tag {
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      padding: 3px 10px;
-      border-radius: 99px;
-      flex-shrink: 0;
-      margin-top: 1px;
-    }
+    /* --- Games block --- */
+    .games-block { background: var(--white); border: 1px solid var(--border); border-left: 4px solid var(--green); border-radius: 0 12px 12px 0; padding: 28px 32px; }
+    .block-label { font-size: 11px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; margin-bottom: 14px; }
+    .block-label.green { color: var(--green); }
+    .block-label.blue { color: var(--blue); }
+    .game-rules { display: flex; flex-direction: column; gap: 12px; }
+    .game-rule { display: flex; align-items: flex-start; gap: 12px; font-size: 14px; color: var(--text); }
+    .rule-tag { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 3px 9px; border-radius: 4px; white-space: nowrap; margin-top: 2px; }
     .rule-tag.blue { background: var(--blue-light); color: var(--blue); }
     .rule-tag.green { background: var(--green-light); color: var(--green); }
-    .game-rule p {
-      font-size: 14px;
-      color: var(--text);
-      line-height: 1.5;
-      margin: 0;
-    }
-    .win-note {
-      margin-top: 16px;
-      font-size: 14px;
-      color: var(--text);
-      font-weight: 600;
-    }
+    .win-note { margin-top: 18px; padding: 14px 20px; background: var(--green-light); border-radius: 8px; font-size: 13px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--green); text-align: center; }
 
-    /* ── Drill link ── */
-    .drill-link {
-      display: inline-block;
-      margin-top: 12px;
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--blue);
-      text-decoration: none;
-      letter-spacing: 0.04em;
-    }
+    /* --- Break badge --- */
+    .break-badge { display: flex; justify-content: center; margin: 20px 0; }
+    .break-badge span { background: #f9fafb; border: 1px solid var(--border); border-radius: 99px; padding: 8px 24px; font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+
+    /* --- Iframe wrap --- */
+    .iframe-wrap { background: var(--white); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; padding: 4px; }
+    .iframe-wrap iframe { display: block; width: 100%; border-radius: 9px; }
+
+    /* --- Aims block --- */
+    .aims-block { background: var(--white); border: 1px solid var(--border); border-left: 4px solid var(--blue); border-radius: 0 12px 12px 0; padding: 24px 28px; }
+    .aims-list { list-style: none; counter-reset: aims; display: flex; flex-direction: column; gap: 10px; padding: 0; }
+    .aims-list li { counter-increment: aims; display: flex; align-items: flex-start; gap: 14px; font-size: 15px; color: var(--text); }
+    .aims-list li::before { content: counter(aims, decimal-leading-zero); font-family: 'Mackintosh', Georgia, serif; font-size: 20px; color: var(--blue); min-width: 28px; line-height: 1.4; }
+
+    /* --- Content card (full width) --- */
+    .content-card { background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 24px 28px; }
+    .content-card.blue-top { border-top: 3px solid var(--blue); }
+    .content-card h3 { font-size: 16px; font-weight: 700; color: var(--blue); margin-bottom: 12px; }
+
+    /* --- Section heading --- */
+    .section-heading { font-size: 13px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; }
+
+    /* --- Drill link --- */
+    .drill-link { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 700; color: var(--blue); text-decoration: none; margin-top: 6px; }
     .drill-link:hover { text-decoration: underline; }
 
-    /* ── Iframe ── */
-    .iframe-wrap {
-      margin-top: 16px;
-      border-radius: 10px;
-      overflow: hidden;
-      background: #000;
-    }
-    .iframe-wrap iframe {
-      display: block;
-    }
+    /* --- Numbered list --- */
+    .numbered-list { list-style: none; counter-reset: steps; display: flex; flex-direction: column; gap: 8px; padding: 0; }
+    .numbered-list li { counter-increment: steps; display: flex; align-items: flex-start; gap: 10px; font-size: 13.5px; color: var(--text); line-height: 1.5; }
+    .numbered-list li::before { content: counter(steps) '.'; font-family: 'Mackintosh', Georgia, serif; font-size: 15px; color: var(--blue); min-width: 20px; line-height: 1.5; }
 
-    /* ── Red Light Green Light table ── */
-    .rlgl-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      margin-top: 16px;
-    }
-    .rlgl-card {
-      border-radius: 12px;
-      padding: 20px 22px;
-      border: 1px solid var(--border);
-    }
-    .rlgl-card.red {
-      background: #fff5f5;
-      border-top: 3px solid #e03b3b;
-    }
-    .rlgl-card.green-card {
-      background: var(--green-light);
-      border-top: 3px solid var(--green);
-    }
-    .rlgl-card h4 {
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      margin: 0 0 12px;
-    }
-    .rlgl-card.red h4 { color: #e03b3b; }
-    .rlgl-card.green-card h4 { color: var(--green); }
+    /* --- Session rule banner --- */
+    .rule-banner { background: #fff8e1; border: 1px solid #fde68a; border-left: 4px solid #f59e0b; border-radius: 0 10px 10px 0; padding: 16px 20px; font-size: 14px; color: #78350f; }
+    .rule-banner strong { display: block; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #92400e; margin-bottom: 6px; }
 
-    /* Fallback vars if style.css not loaded */
-    :root {
-      --blue: #1e6fbf;
-      --blue-light: #e8f1fb;
-      --blue-glow: rgba(30,111,191,0.12);
-      --green: #1a9e5c;
-      --green-light: #e6f7ee;
-      --text: #1a1f2e;
-      --muted: #6b7280;
-      --border: #e5e7eb;
-      --white: #ffffff;
-      --bg: #f9fafb;
-    }
+    /* --- Throwing drill block --- */
+    .drill-distance { font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--blue); margin: 16px 0 8px; }
+    .drill-distance:first-child { margin-top: 0; }
 
   </style>
 </head>
@@ -374,17 +104,22 @@
   <nav>
     <a class="nav-logo" href="index.html">Team Hub</a>
     <ul class="nav-links">
-      <li><a href="training.html" class="active-blue">Training</a></li>
+      <li><a href="training.html">Training</a></li>
       <li><a href="footage.html">Footage</a></li>
       <li><a href="scouting.html">Scouting</a></li>
     </ul>
   </nav>
 
+  <!-- Page Banner -->
   <div class="page-banner banner-blue">
     <div class="container">
-      <div class="breadcrumb"><a href="index.html">Home</a> / <a href="training.html">Training Plans</a> / 10 May</div>
+      <div class="breadcrumb">
+        <a href="index.html">Home</a> /
+        <a href="training.html">Training Plans</a> /
+        10 May
+      </div>
       <h1>10 May</h1>
-      <p class="subtitle">Communication &amp; Confidence — 3 hours, 2:00 PM</p>
+      <p>Communication &amp; Confidence — 3 hours, 2:00 PM</p>
     </div>
   </div>
 
@@ -402,203 +137,247 @@
       </div>
 
       <!-- Session Rule -->
-      <div class="rule-block">
-        <div class="block-label green">Session Rule</div>
-        <p>In all games, FMPs must pick up the disc after a turnover. This can be for a quick start or slow start.</p>
+      <div class="rule-banner">
+        <strong>Session Rule</strong>
+        In all games, FMPs must pick up the disc after a turnover. This can be for a quick start or slow start.
       </div>
 
       <hr class="section-divider"/>
 
-      <!-- Timeline: Warm Up -->
+      <!-- Timeline: Early session -->
       <div class="time-row">
         <div class="time-stamp">2:00</div>
-        <div>
+        <div class="time-body">
           <h3>Session Start — Warm Up</h3>
         </div>
       </div>
 
       <div class="time-row" style="border-bottom:none;">
         <div class="time-stamp">2:15</div>
-        <div>
-          <h3>4 Lines / Buzz Bullets</h3>
-          <ul class="bullet-list">
-            <li>Uplines — outside and flat forces</li>
-            <li>Out and under — outside and away force</li>
-            <li>Out — outside force; thrower starts with a small pop pass</li>
-          </ul>
-          <p style="margin-top:10px; font-size:13px; color:var(--muted);">5 minutes on each force (25 minutes total)</p>
+        <div class="time-body">
+          <h3>Break Force Drill</h3>
+          <p>5 minutes inside force · 5 minutes flat force</p>
+                 <div class="iframe-wrap">
+         <iframe width="574px" height="501px" src="https://www.ultiplays.com/embed/8qDYx2ZxMMUXqdwmXDel" frameborder="0" allowfullscreen></iframe>
         </div>
-      </div>
-
-      <hr class="section-divider"/>
-
-      <!-- Single Gender Drills -->
-      <div class="time-row" style="border-bottom:none;">
-        <div class="time-stamp">2:40</div>
-        <div>
-          <h3>Single Gender Drills</h3>
-          <p>Don't faff — get straight into these drills. 10 minutes on each drill.</p>
-        </div>
-      </div>
-
-      <!-- FAT Unders -->
-      <div class="content-card blue-top">
-        <h3>FAT Unders</h3>
-        <p style="font-size:13px; color:var(--muted); margin:0 0 10px;">5 minutes backhand, 5 minutes forehand</p>
-        <ul class="bullet-list">
-          <li>Throw hard and low</li>
-          <li>Attack the disc when catching</li>
-          <li>Cut hard</li>
-        </ul>
-        <div class="iframe-wrap">
-          <iframe width="100%" height="400" src="https://www.ultiplays.com/embed/vDQ6X2YZdMI8ryn1OP0K" frameborder="0" allowfullscreen></iframe>
-        </div>
-      </div>
-
-      <!-- Break Force -->
-      <div class="content-card blue-top">
-        <h3>Break Force</h3>
-        <ul class="bullet-list">
-          <li>Throw early</li>
-          <li>Throw with touch and control</li>
-          <li>Use body language to sell your fakes</li>
-        </ul>
-        <div class="iframe-wrap">
-          <iframe width="100%" height="400" src="https://www.ultiplays.com/embed/E3nKB2eKR4uvnkBVOMWV" frameborder="0" allowfullscreen></iframe>
-        </div>
-      </div>
-
-      <hr class="section-divider"/>
-
-      <!-- Break -->
-      <div class="time-row" style="border-bottom:none;">
-        <div class="time-stamp">3:05</div>
-        <div>
-          <div class="break-badge">⏸ &nbsp; 3:05 – 3:10 &nbsp; Break</div>
-        </div>
-      </div>
+       </div>
+</div>
 
       <hr class="section-divider"/>
 
       <!-- Game 1 -->
       <div class="time-row" style="border-bottom:none;">
-        <div class="time-stamp">3:10</div>
-        <div>
+        <div class="time-stamp">2:30</div>
+        <div class="time-body">
           <h3>Game 1 — No Talking</h3>
         </div>
       </div>
 
       <div class="games-block">
         <div class="block-label green">Game Format</div>
+        <div class="game-rules">
+          <div class="game-rule">
+            <span class="rule-tag green">Format</span>
+            20 minute game duration
+          </div>
+          <div class="game-rule">
+            <span class="rule-tag green">Format</span>
+            Max 120 seconds between points · Agree ABBA or fixed ratio for game starts
+          </div>
+          <div class="game-rule">
+            <span class="rule-tag blue">Rule</span>
+            30 seconds between points (starts as soon as a team scores)
+          </div>
+          <div class="game-rule">
+            <span class="rule-tag blue">Rule</span>
+            The only talking permitted: stall count, and when a foul is called
+          </div>
+          <div class="game-rule">
+            <span class="rule-tag blue">Rule</span>
+            All other communication must be<strong>nonverbal</strong>
+          </div>
+        </div>
+              </div>
 
-        <div class="game-rule">
-          <span class="rule-tag green">Format</span>
-          <p>Game duration is 20 minutes. Max 120 seconds between points. Agree on ABBA or fixed ratio between game starts.</p>
-        </div>
-        <div class="game-rule">
-          <span class="rule-tag blue">Rule</span>
-          <p>The only talking allowed is the stall count and when a foul is called. 30 seconds between points (starts as soon as a team scores).</p>
-        </div>
-        <div class="game-rule">
-          <span class="rule-tag blue">Rule</span>
-          <p><strong>All other communication must be nonverbal.</strong></p>
-        </div>
-      </div>
+      <hr class="section-divider"/>
 
       <!-- Game 2 -->
       <div class="time-row" style="border-bottom:none;">
-        <div class="time-stamp">3:30</div>
-        <div>
+        <div class="time-stamp">2:50</div>
+        <div class="time-body">
           <h3>Game 2 — One Speaker Per Team</h3>
         </div>
       </div>
 
       <div class="games-block">
         <div class="block-label green">Game Format</div>
-
-        <div class="game-rule">
-          <span class="rule-tag green">Format</span>
-          <p>Game duration is 20 minutes. Max 120 seconds between points. Agree on ABBA or fixed ratio between game starts.</p>
+        <div class="game-rules">
+          <div class="game-rule">
+            <span class="rule-tag green">Format</span>
+            20 minute game duration
+          </div>
+          <div class="game-rule">
+            <span class="rule-tag green">Format</span>
+            Max 120 seconds between points · Agree ABBA or fixed ratio for game starts
+          </div>
+          <div class="game-rule">
+            <span class="rule-tag blue">Rule</span>
+            One person per team may talk each point — chosen by the captains at the start of each point
+          </div>
+          <div class="game-rule">
+            <span class="rule-tag blue">Rule</span>
+            The same person cannot speak twice in a row · Must alternate between genders
+          </div>
+          <div class="game-rule">
+            <span class="rule-tag blue">Rule</span>
+            The only other talking permitted: stall count, and when a foul is called
+          </div>
+          <div class="game-rule">
+            <span class="rule-tag blue">Rule</span>
+            All other communication must be <strong>nonverbal</strong>
+          </div>
         </div>
-        <div class="game-rule">
-          <span class="rule-tag blue">Rule</span>
-          <p>One person is allowed to talk per team, per point. Each point, captains pick a new speaker — can't be the same person twice, and must alternate between genders.</p>
-        </div>
-        <div class="game-rule">
-          <span class="rule-tag blue">Rule</span>
-          <p>Outside of the speaker, only the stall count and foul calls are permitted. <strong>Everything else must be nonverbal.</strong></p>
-        </div>
-      </div>
+              </div>
 
       <!-- Break -->
-      <div class="time-row" style="border-bottom:none;">
-        <div class="time-stamp">3:50</div>
-        <div>
-          <div class="break-badge">⏸ &nbsp; 3:50 – 4:00 &nbsp; Break</div>
-        </div>
+      <div class="break-badge">
+        <span>⏸ &nbsp; 3:10 – 3:15 &nbsp; Break</span>
       </div>
 
       <hr class="section-divider"/>
 
       <!-- Red Light Green Light -->
       <div class="time-row" style="border-bottom:none;">
-        <div class="time-stamp">4:00</div>
-        <div>
+        <div class="time-stamp">3:15</div>
+        <div class="time-body">
           <h3>Red Light, Green Light</h3>
-          <p>20 minutes per gender. 4:00 – 4:40.</p>
-        </div>
+ <p> Green light - Take on Options, push yourself to do more.    Red light - Dial it back, don't take on risks.</p>
+
+                 </div>
       </div>
 
-      <div class="games-block">
-        <div class="block-label green">Game Format — Red Light / Green Light</div>
+
+
+<div class="games-block">
+        <div class="block-label green">Game Format</div>
+        <div class="game-rules">
+          <div class="game-rule">
+            <span class="rule-tag blue">Format</span>
+20 minutes per Gender        
+          </div>    
+          <div class="game-rule">
+            <span class="rule-tag blue">Format </span>
+          A Jail is placed on the sideline at halfway. If you turn over when on Red light, you must go to jail for 10 seconds, while the game continues. 
+          </div>
+        
+
+          <div class="game-rule">
+            <span class="rule-tag green">Jail</span>
+Turnover on a progressive option</strong> (resets and swings don't count) → thrower goes to jail for 10 seconds while play continues    
+          </div>   
 
         <div class="game-rule">
-          <span class="rule-tag green">Format</span>
-          <p>20 minutes per gender group.</p>
-        </div>
-        <div class="game-rule">
-          <span class="rule-tag blue">Rule</span>
-          <p><strong>Jail</strong> — positioned on the sideline at halfway. Play continues while a player travels to and from jail. Don't walk, or your team suffers longer.</p>
+            <span class="rule-tag green">Jail</span>
+Timekeeper may also send you to jail for excessive risk (e.g. contested huck, poaching on D)       </div>    
+
+</div>
+</div>
+
+
+      <div class="zone-grid">
+
+        <div class="zone-card offence">
+          <h3>🔴 Red Light</h3>
+          <ul class="bullet-list">
+            <li>Take conservative options</li>
+            <li>Play safe — reset early</li>
+            <li>Don't rush decisions or execution</li>
+            <li>Don't hog the disc</li>
+            <li>On D: play tight, no poaching, no risks</li>
+          </ul>
+ <p style="font-size:12px;color:var(--muted);margin-top:12px;line-height:1.5;">Play continues while a player travels to and from jail — don't walk or your team suffers longer.</p>
+
         </div>
 
-        <div class="rlgl-grid">
-          <div class="rlgl-card red">
-            <h4>🔴 Red Light</h4>
-            <ul class="bullet-list">
-              <li>Take on conservative options — play safe</li>
-              <li>Reset early</li>
-              <li>Don't rush decisions or execution</li>
-              <li>Don't hog the disc</li>
-              <li>When playing D — play tight, no poaching, no taking risks</li>
-            </ul>
-            <p style="font-size:13px; margin-top:12px; color:#e03b3b; font-weight:600;">If there is a turnover on a progressive option (reset and swing passes don't count), the thrower must go to jail for 10 seconds while play continues. The timekeeper can also send you to jail if you are being too risky (e.g. throwing a contested huck, poaching off on D).</p>
-          </div>
-          <div class="rlgl-card green-card">
-            <h4>🟢 Green Light</h4>
-            <ul class="bullet-list">
-              <li>Take on progressive options</li>
-              <li>Try to throw break throws or hucks</li>
-              <li>Don't rush to reset the disc</li>
-              <li>Set yourself up in the active lanes</li>
-              <li>When playing D — take risks, look to poach into the lane</li>
-            </ul>
-          </div>
+        <div class="zone-card defence">
+          <h3>🟢 Green Light</h3>
+          <ul class="bullet-list">
+            <li>Take progressive options</li>
+            <li>Look for break throws or hucks</li>
+            <li>Don't rush to reset — stay in active lanes</li>
+            <li>On D: take risks, look to poach into the lane</li>
+          </ul>
+         
         </div>
+
+      </div>
+
+      <!-- Break -->
+      <div class="break-badge">
+        <span>⏸ &nbsp; 3:55 – 4:00 &nbsp; Break</span>
       </div>
 
       <hr class="section-divider"/>
 
-      <!-- Final Game -->
-      <div class="time-row">
-        <div class="time-stamp">4:40</div>
-        <div>
-          <h3>Game to 3 — Standard Ultimate</h3>
-          <p>Full-field standard ultimate to close out the session.</p>
+      <!-- Kung Fu Throwing -->
+      <div class="time-row" style="border-bottom:none;">
+        <div class="time-stamp">4:00</div>
+        <div class="time-body">
+          <h3>Kung Fu Throwing</h3>
+          <p>Keep all discs below head height. Play with your pivot position and release point. Bring intensity and focus.</p>
         </div>
       </div>
 
-    </div><!-- /.session-layout -->
-  </div><!-- /.container -->
+      <div class="content-card blue-top">
+        <h3>Throwing Sequence</h3>
+
+        <p class="drill-distance">10 yards apart</p>
+        <ol class="numbered-list">
+          <li>Flat backhands — 30 seconds</li>
+          <li>Flat forehands — 30 seconds</li>
+          <li>Fake backhand, pivot over, throw forehand — 30 seconds</li>
+          <li>Fake forehand, pivot over, throw backhand — 30 seconds</li>
+          <li>Soft, delicate, touchy forehands — 30 seconds</li>
+          <li>Half-pivot backhands — 30 seconds</li>
+        </ol>
+
+        <p class="drill-distance">20 yards apart</p>
+        <ol class="numbered-list">
+          <li>Flat backhands — 45 seconds</li>
+          <li>Flat forehands — 45 seconds</li>
+          <li>Fake backhand, pivot over, throw forehand — 45 seconds</li>
+          <li>Fake forehand, pivot over, throw backhand — 45 seconds</li>
+          <li>Hard, fast, controlled backhands — 45 seconds</li>
+          <li>Hard, fast, controlled forehands — 45 seconds</li>
+        </ol>
+
+        <p class="drill-distance">2 yards apart</p>
+        <ol class="numbered-list">
+          <li>Throw how you catch — 40 catches. Challenge the catcher: make some high, some low, some fast, some weird spin.</li>
+        </ol>
+      </div>
+
+      <hr class="section-divider"/>
+
+      <!-- Game to 3 -->
+      <div class="time-row">
+        <div class="time-stamp">4:15</div>
+        <div class="time-body">
+          <h3>Game to 3</h3>
+        </div>
+      </div>
+ 
+   <!-- Game to 3 -->
+      <div class="time-row">
+        <div class="time-stamp">4:30</div>
+        <div class="time-body">
+          <h3>Mini Social</h3>
+        </div>
+      </div>
+
+      
+    </div><!-- /session-layout -->
+  </div><!-- /container -->
 
 </body>
 </html>
