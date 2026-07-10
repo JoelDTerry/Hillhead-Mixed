@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DD Month — Team Hub</title>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+
+    /* =============================================
+       SESSION PAGE COMPONENT STYLES
+       ============================================= */
+
+    /* --- Layout wrapper --- */
+    .session-layout { display: flex; flex-direction: column; gap: 28px; }
+
+    /* --- Divider --- */
+    .section-divider { border: none; border-top: 1px solid var(--border); margin: 28px 0; }
+
+    /* --- Time row --- */
+    .time-row { display: grid; grid-template-columns: 80px 1fr; gap: 24px; align-items: start; padding: 16px 0; border-bottom: 1px solid var(--border); }
+    .time-stamp { font-family: 'Mackintosh', Georgia, serif; font-size: 20px; color: var(--blue); padding-top: 2px; }
+    .time-body h3 { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 2px; }
+    .time-body p { font-size: 14px; color: var(--muted); }
+
+    /* --- Zone cards --- */
+    .zone-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .zone-card { background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 24px; }
+    .zone-card.offence { border-top: 3px solid var(--blue); }
+    .zone-card.defence { border-top: 3px solid var(--green); }
+    .zone-card h3 { font-size: 18px; letter-spacing: 0.03em; margin-bottom: 14px; }
+    .zone-card.offence h3 { color: var(--blue); }
+    .zone-card.defence h3 { color: var(--green); }
+    .bullet-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .bullet-list li { font-size: 13.5px; color: var(--text); padding-left: 16px; position: relative; line-height: 1.5; }
+    .bullet-list li::before { content: '–'; position: absolute; left: 0; color: var(--muted); }
+
+    /* --- Games block --- */
+    .games-block { background: var(--white); border: 1px solid var(--border); border-left: 4px solid var(--green); border-radius: 0 12px 12px 0; padding: 28px 32px; }
+    .block-label { font-size: 11px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; margin-bottom: 14px; }
+    .block-label.green { color: var(--green); }
+    .block-label.blue { color: var(--blue); }
+    .game-rules { display: flex; flex-direction: column; gap: 12px; }
+    .game-rule { display: flex; align-items: flex-start; gap: 12px; font-size: 14px; color: var(--text); }
+    .rule-tag { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 3px 9px; border-radius: 4px; white-space: nowrap; margin-top: 2px; }
+    .rule-tag.blue { background: var(--blue-light); color: var(--blue); }
+    .rule-tag.green { background: var(--green-light); color: var(--green); }
+    .win-note { margin-top: 18px; padding: 14px 20px; background: var(--green-light); border-radius: 8px; font-size: 13px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--green); text-align: center; }
+
+    /* --- Break badge --- */
+    .break-badge { display: flex; justify-content: center; margin: 20px 0; }
+    .break-badge span { background: #f9fafb; border: 1px solid var(--border); border-radius: 99px; padding: 8px 24px; font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+
+    /* --- Aims block --- */
+    .aims-block { background: var(--white); border: 1px solid var(--border); border-left: 4px solid var(--blue); border-radius: 0 12px 12px 0; padding: 24px 28px; }
+    .aims-list { list-style: none; counter-reset: aims; display: flex; flex-direction: column; gap: 10px; }
+    .aims-list li { counter-increment: aims; display: flex; align-items: flex-start; gap: 14px; font-size: 15px; color: var(--text); }
+    .aims-list li::before { content: counter(aims, decimal-leading-zero); font-family: 'Mackintosh', Georgia, serif; font-size: 20px; color: var(--blue); min-width: 28px; line-height: 1.4; }
+
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="nav-logo" href="index.html">Team Hub</a>
+    <ul class="nav-links">
+      <li><a href="training.html">Training</a></li>
+      <li><a href="footage.html">Footage</a></li>
+      <li><a href="scouting.html">Scouting</a></li>
+    </ul>
+  </nav>
+
+  <div class="page-banner banner-blue">
+    <div class="container">
+      <div class="breadcrumb">
+        <a href="index.html">Home</a> /
+        <a href="training.html">Training Plans</a> / 12th July
+      </div>
+      <h1>12th July</h1>
+      <p>Regional &amp; Southampton Prep — 3 hours, 2:00 PM</p>
+    </div>
+  </div>
+
+    <hr class="section-divider"/>
+
+  <div class="container">
+    <div class="session-layout">
+
+      <div class="aims-block">
+        <div class="block-label blue">Session Aims</div>
+        <ul class="aims-list">
+          <li> Run though everything before our tournaments</li>
+          </ul>
+      </div>
+
+
+
+    <div class="session-layout">
+
+
+     <div class="aims-block">
+  <div class="block-label blue">Playbook</div>
+  <p style="font-size:15px; color:var(--text);">Read through it before the session — <a href="https://docs.google.com/presentation/d/1CubzU1oSHpIvvK_0fdh_xkbgYnDkmPitHYwdI2JEBls/edit?slide=id.g25c6ccf7b50_0_181#slide=id.g25c6ccf7b50_0_181" target="_blank">view the playbook</a>.</p>
+</div>
+
+      <hr class="section-divider"/>
+
+  <div class="time-row">
+    <div class="time-stamp">2:00</div>
+
+
+<div>
+  <p style="color:var(--muted); font-size:20px; margin-bottom:14px;">
+Practise our pre game warm up -  make an active effort to foucs on you and what you need to do get game ready so you can gou and perform at your best.      
+
+  </p>
+
+  <div class="time-row">
+    
+      <div>
+        <div class="time-row">
+          <div class="time-stamp">2:00</div>
+          <div class="time-body">
+            <h3>Warm Up</h3>
+          </div>
+        </div>
+        <div class="time-row">
+          <div class="time-stamp">2:15</div>
+          <div class="time-body">
+            <h3>Throwing Drill</h3>
+          </div>
+        </div>
+<div class="time-row">
+          <div class="time-stamp">2:25</div>
+          <div class="time-body">
+            <h3>Half pitch 7s </h3>
+          </div>
+        </div>
+      </div>
+      </div>
+
+
+   
+</div>
+        <div class="time-row" style="border-bottom:none;">
+          <div class="time-stamp">2:30</div>
+          <div class="time-body">
+            <h2>Game</h2>
+                      </div>
+        </div>
+      </div>
+
+
+      <div class="games-block">
+        <div class="block-label green">Game Format</div>
+        <div class="game-rules">
+          <div class="game-rule">
+            <span class="rule-tag green">Format</span>
+            Game to 3
+          </div>
+          <div class="game-rule">
+            <span class="rule-tag blue">Rule</span>
+            4 minutes between points if offence holds, 120 seconds if the point is broken
+          </div>
+          <div class="game-rule">
+            <span class="rule-tag blue">Rule</span>
+            Defence pulls every point
+          </div>
+          <div class="game-rule">
+            <span class="rule-tag blue">Rule</span>
+            A break is worth 2 goals
+          </div>
+        </div>
+        <div class="win-note">🏆 &nbsp; First to 3 Wins</div>
+      </div>
+
+      <div class="zone-grid">
+        <div class="zone-card offence">
+          <h3>Offence Focus</h3>
+          <ul class="bullet-list">
+            <li>Discs into space, letting the receiver run onto the catch</li>
+          </ul>
+        </div>
+        <div class="zone-card defence">
+          <h3>Defence Focus</h3>
+          <ul class="bullet-list">
+            <li>Intensity on defence — bring it from the sideline onto the pitch</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="break-badge">
+        <span>⏸ &nbsp; 3:00 – 3:10 &nbsp; Break &amp; Line Chat</span>
+      </div>
+
+      <div>
+        <div class="time-row">
+          <div class="time-stamp">3:10</div>
+          <div class="time-body">
+            <h3>Pull Play "Walk" Through</h3>
+            <p>15 minutes — defence: no poaching, slightly reduced intensity, focus on letting O line run the pull plays through our plays</p>
+          </div>
+        </div>
+        <div class="time-row">
+          <div class="time-stamp">3:25</div>
+          <div class="time-body">
+            <h3>Zone Run Through</h3>
+            <p>20 minutes - lots of zone, practise for both lines</p>
+          </div>
+        </div>
+        <div class="time-row">
+          <div class="time-stamp">3:45</div>
+          <div class="time-body">
+            <h3>Endzone</h3>
+            <p> 20 minutes - at least 5 reps each side, O line playing horizontal, D line playing vertical</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="break-badge">
+        <span>⏸ &nbsp; 4:05 – 4:15 BREAK &nbsp;</span>
+      </div>
+
+      <div>
+        <div class="time-row">
+          <div class="time-stamp">4:15</div>
+          <div class="time-body">
+            <h3>70 Pass Drill</h3>
+          </div>
+        </div>
+        <div class="time-row">
+          <div class="time-stamp">4:25</div>
+          <div class="time-body">
+            <h3>Game to 5</h3>
+          </div>
+        </div>
+        <div class="time-row">
+          <div class="time-stamp">4:50</div>
+          <div class="time-body">
+            <h3>Default Cutting Patterns Run Through</h3>
+          </div>
+        </div>
+        <div class="time-row">
+          <div class="time-stamp">5:00</div>
+          <div class="time-body">
+            <h3>End &amp; Debrief</h3>
+            <p>Hang around after for games, pints, and good company</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</body>
+</html>
